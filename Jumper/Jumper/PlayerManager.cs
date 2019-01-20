@@ -10,180 +10,197 @@ namespace Jumper
 {
     class PlayerManager
     {
-        // Variables.
-        Texture2D playerSprite;
-        float timer = 0f;
-        float interval = 200f;
-        int currentFrame = 0;
-        int spriteWidth = 29;
-        int spriteHeight = 47;
-        int spriteSpeed = 2;
-        Rectangle sourceRect;
-        Vector2 position;
-        Vector2 velocity;
-        bool Airborne = false;
+        // Variables
+        public Sprite Sprite;
+        private float timer = 0f;
+        private float interval = 150f;
+        private int currentFrame = 0;
+        private int spriteSpeed = 3;
+        private float gravity = 0.15f;
+        private int startLives = 3;
+        public int Lives;
+        public float LevelTimeLeft;
+        public float LevelTime;
 
-        // Defines get/sets.
+        public bool CollidesTop;
+        public bool CollidesBottom;
+        public bool CollidesRight;
+        public bool CollidesLeft;
+
+        // Defines get/sets
         public Vector2 Poisition
         {
-            get { return position; }
-            set { position = value; }
+            get { return Sprite.Position; }
+            set { Sprite.Position = value; }
         }
 
-        public Vector2 Velocity
+        public bool Airborne => !CollidesBottom;
+
+        public Rectangle Rectangle => Sprite.Rectangle;
+
+        // Constructor
+        public PlayerManager(Sprite sprite)
         {
-            get { return velocity;  }
-            set { velocity = value; }
+            this.Sprite = sprite;
+            Lives = startLives;
+
+            // Disable sprite class' animation so that animation can be handled here instead
+            Sprite.Animate = false;
         }
 
-        public Texture2D Texture
+        // Function to kill player
+        public void KillPlayer()
         {
-            get { return playerSprite; }
-            set { playerSprite = value; }
-        }
-        
-        public Rectangle SourceRect
-        {
-            get { return sourceRect; }
-            set { sourceRect = value; }
-        }
-
-        // Constructor; Specifies what is needed to create an object using this class.
-        public PlayerManager(Texture2D texture, int currentFrame, int spriteWidth, int spriteHeight)
-        {
-            this.playerSprite = texture;
-            this.currentFrame = currentFrame;
-            this.spriteWidth = spriteWidth;
-            this.spriteHeight = spriteHeight;
-        }
-
-        // Variables for the current and prevous keyboardstate.
-        KeyboardState currentKBState;
-        KeyboardState previousKBState;
-
-        // HandleSpriteMovement
-        public void HandleSpriteMovement(GameTime gameTime)
-        {
-            // Sets the previous keyboard state to the current and then updates the current one.
-            previousKBState = currentKBState;
-            currentKBState = Keyboard.GetState();
-
-            // Create rectangle from current playing frame.
-            sourceRect = new Rectangle(currentFrame * spriteWidth, 0, spriteWidth, spriteHeight);
-
-            // Gravity
-            if (Airborne && velocity.Y < 4)
+            SoundManager.Hurt.Play();
+            if (Lives > 1)
             {
-                velocity.Y += 0.15f;
-            }
-            else if (Airborne == false)
-            {
-                velocity.Y = 0;
-            }
-
-            // Animate if keys are pressed
-            if (currentKBState.GetPressedKeys().Length == 0)
-            {
-                // Start at the first frame when pressing down.
-                if (currentFrame > 0 && currentFrame < 4)
-                {
-                    currentFrame = 0;
-                }
-                // Start at the fourth frame when pressing left.
-                if (currentFrame > 4 && currentFrame < 8)
-                {
-                    currentFrame = 4;
-                }
-            }
-
-            // Animates the player Right and creates a boundry to confine the player within the Right side of the window.
-            if (currentKBState.IsKeyDown(Keys.Right))
-            {
-                AnimateRight(gameTime);
-                if (position.X < 780)
-                {
-                    velocity.X = spriteSpeed;
-                }
-            }
-
-            // Animates the player Left and creates a boundry to confine the player within the Left side of the window.
-            else if (currentKBState.IsKeyDown(Keys.Left))
-            {
-                AnimateLeft(gameTime);
-                if (position.X > 20)
-                {
-                    velocity.X = spriteSpeed*-1;
-                }
+                Lives--;
+                Game1.C1Level--;
             }
             else
             {
-                velocity.X = 0;
+                Game1.gameState = Game1.GameState.GameOver;
+            }
+        }
+
+        // Reset player
+        public void Reset()
+        {
+            Lives = startLives;
+        }
+
+        // Update player
+        public void Update(GameTime gameTime)
+        {
+            // Gravity
+            if (Airborne && Sprite.Velocity.Y < 4)
+            {
+                Sprite.Velocity.Y += gravity;
+            }
+            if (Airborne == false)
+            {
+                Sprite.Velocity.Y = 0;
+            }
+
+            if (CollidesTop)
+            {
+                Sprite.Velocity.Y = 0;
+                // Move player down one pixel to avoid getting stuck as long as not standing on ground
+                if (!CollidesBottom)
+                    Sprite.Position.Y++;
+            }
+
+            // Reset to idle frame if movement keys are released 
+            if (InputManager.KBState.IsKeyUp(Keys.Left) && InputManager.PrevKBState.IsKeyDown(Keys.Left))
+            {
+                Sprite.Frame = 5;
+            }
+            else if (InputManager.KBState.IsKeyUp(Keys.Right) && InputManager.PrevKBState.IsKeyDown(Keys.Right))
+            {
+                Sprite.Frame = 0;
+            }
+
+            // Animates the player Right and creates a boundry to confine the player within the Right side of the window
+            if (InputManager.KBState.IsKeyDown(Keys.Right) && !CollidesRight)
+            {
+                AnimateRight(gameTime);
+                    Sprite.Velocity.X = spriteSpeed;
+            }
+
+            // Animates the player Left and creates a boundry to confine the player within the Left side of the window
+            else if (InputManager.KBState.IsKeyDown(Keys.Left) && !CollidesLeft)
+            {
+                AnimateLeft(gameTime);
+                    Sprite.Velocity.X = spriteSpeed*-1;
+            }
+            else
+            {
+                Sprite.Velocity.X = 0;
             }
             // Check if player should jump
-            if (currentKBState.IsKeyDown(Keys.Up) && Airborne == false)
+            if (InputManager.KBState.IsKeyDown(Keys.Up) && Airborne == false && !CollidesTop)
             {
-                // Increase player's velocity upwards.
-                velocity.Y -= 5f;
-                // Move player one pixel up to avoid collision with platform.
-                position.Y--;
-                // Set playerAirborne to true to prevent flying.
-                Airborne = true;
+                // Increase player's Velocity upwards
+                Sprite.Velocity.Y -= 4.1f;
             }
 
-            // DEBUG REMOVE BEFORE RELEASE
-            if (currentKBState.IsKeyDown(Keys.Space))
+            // Stop player from moving outside window
+            if (Sprite.Position.X <= 0 && Sprite.Velocity.X < 0)
             {
-                Airborne = false;
+                Sprite.Velocity.X = 0;
             }
+            else if (Sprite.Position.X >= 800 - Sprite.FrameWidth && Sprite.Velocity.X > 0)
+            {
+                Sprite.Velocity.X = 0;
+            }
+            else if (Sprite.Position.Y <= 0 && Sprite.Velocity.Y < 0)
+            {
+                Sprite.Velocity.Y = 0;
+            }
+            else if (Sprite.Position.Y >= 480 - Sprite.FrameHeight && Sprite.Velocity.Y > 0)
+            {
+                Sprite.Velocity.Y = 0;
+            }
+            Sprite.Update(gameTime);
 
-            // Apply velocity to player
-            position += velocity;
+            // Update time
+            LevelTimeLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            // Kill player if time runs out
+            if (LevelTimeLeft < LevelTime)
+            {
+                KillPlayer();
+            }
         }
 
 
         public void AnimateRight(GameTime gameTime)
         {
-            // Resets to the first "right frame" if Right is released.
-            if (currentKBState != previousKBState)
+            // Resets to the first "right frame" if right was not previously pressed
+            if (InputManager.PrevKBState.IsKeyUp(Keys.Right))
             {
-                currentFrame = 0;
+                Sprite.Frame = 0;
             }
 
-            // Creates a timer that counts upwards in milliseconds.
+            // Creates a timer that counts upwards in milliseconds
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            // Changes frame and resets the timer once it reaches the value of "interval".
+            // Changes frame and resets the timer once it reaches the value of "interval"
             if (timer > interval)
             {
-                currentFrame++;
-                // Loops back to the "first" frame once the "last" one is reached.
-                if (currentFrame > 3)
+                //Loops back to the "first" frame once the "last" one is reached
+                if (Sprite.Frame >= 4)
                 {
-                    currentFrame = 0;
+                    Sprite.Frame = 0;
                 }
+                Sprite.Frame++;
                 timer = 0f;
             }
         }
 
         public void AnimateLeft(GameTime gameTime)
         {
-            // Resets to the first "right frame" if Right is released.
-            if (currentKBState != previousKBState)
+            // Resets to the first "right frame" if Right is released
+            if (InputManager.PrevKBState.IsKeyUp(Keys.Left))
             {
-                currentFrame = 4;
+                Sprite.Frame = 4;
             }
             // Creates a timer that counts upwards in milliseconds.
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            // Changes frame and resets the timer once it reaches the value of "interval".
+            // Changes frame and resets the timer once it reaches the value of "interval"
             if (timer > interval)
             {
-                currentFrame++;
-                // Loops back to the "first" frame once the "last" one is reached.
-                if (currentFrame > 6)
+                // Loops back to the "first" frame once the "last" one is reached
+                if (Sprite.Frame >= 8)
                 {
-                    currentFrame = 4;
+                    Sprite.Frame = 4;
                 }
+                Sprite.Frame++;
                 timer = 0f;
             }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Sprite.Draw(spriteBatch);
         }
     }
 }
