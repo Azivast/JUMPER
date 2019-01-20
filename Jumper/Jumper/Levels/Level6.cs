@@ -133,8 +133,8 @@ namespace Jumper
             tileManager.AddTile(block, new Vector2(326, 283), new Rectangle(0, 0, 25, 25));
 
             // Lower Line
-            tileManager.AddTile(block, new Vector2(415, 283), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(415, 258), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(415, 288), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(415, 263), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(440, 288), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(465, 288), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(490, 288), new Rectangle(0, 0, 25, 25));
