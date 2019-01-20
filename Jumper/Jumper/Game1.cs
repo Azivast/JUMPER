@@ -212,26 +212,26 @@ namespace Jumper
 
             //!!DEBUG CHANGE BEFORE RELEASE!!
             // Warp keys
-            if (InputManager.IsTapped(Keys.NumPad1))
-                C1Level = Chapter1.PreLevel1;
-            if (InputManager.IsTapped(Keys.NumPad2))
-                C1Level = Chapter1.PreLevel2;
-            if (InputManager.IsTapped(Keys.NumPad3))
-                C1Level = Chapter1.PreLevel3;
-            if (InputManager.IsTapped(Keys.NumPad4))
-                C1Level = Chapter1.PreLevel4;
-            if (InputManager.IsTapped(Keys.NumPad5))
-                C1Level = Chapter1.PreLevel5;
-            if (InputManager.IsTapped(Keys.OemMinus))
-                gameState = GameState.GameOver;
-            if (InputManager.IsTapped(Keys.NumPad6))
-                C1Level = Chapter1.PreLevel6;
-            if (InputManager.IsTapped(Keys.NumPad7))
-                C1Level = Chapter1.PreLevel7;
-            if (InputManager.IsTapped(Keys.NumPad8))
-                C1Level = Chapter1.PreLevel8;
-            if (InputManager.IsTapped(Keys.NumPad0))
-                C1Level = Chapter1.PreLevelTest;
+            //if (InputManager.IsTapped(Keys.NumPad1))
+            //    C1Level = Chapter1.PreLevel1;
+            //if (InputManager.IsTapped(Keys.NumPad2))
+            //    C1Level = Chapter1.PreLevel2;
+            //if (InputManager.IsTapped(Keys.NumPad3))
+            //    C1Level = Chapter1.PreLevel3;
+            //if (InputManager.IsTapped(Keys.NumPad4))
+            //    C1Level = Chapter1.PreLevel4;
+            //if (InputManager.IsTapped(Keys.NumPad5))
+            //    C1Level = Chapter1.PreLevel5;
+            //if (InputManager.IsTapped(Keys.OemMinus))
+            //    gameState = GameState.GameOver;
+            //if (InputManager.IsTapped(Keys.NumPad6))
+            //    C1Level = Chapter1.PreLevel6;
+            //if (InputManager.IsTapped(Keys.NumPad7))
+            //    C1Level = Chapter1.PreLevel7;
+            //if (InputManager.IsTapped(Keys.NumPad8))
+            //    C1Level = Chapter1.PreLevel8;
+            //if (InputManager.IsTapped(Keys.NumPad0))
+            //    C1Level = Chapter1.PreLevelTest;
 
             // Gamestate specific code
             switch (gameState)
