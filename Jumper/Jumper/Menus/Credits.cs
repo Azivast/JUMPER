@@ -50,15 +50,6 @@ namespace Jumper
         // Update
         public static void Update(GameTime gameTime)
         {
-            if (InputManager.IsTapped(Keys.Down))
-            {
-                buttons.NextButton();
-            }
-            else if (InputManager.IsTapped(Keys.Up))
-            {
-                buttons.PrevButton();
-            }
-
             if (InputManager.IsTapped(Keys.Enter))
             {
                 SoundManager.Select.Play();
