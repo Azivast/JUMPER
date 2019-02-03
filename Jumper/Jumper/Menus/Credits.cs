@@ -15,21 +15,24 @@ namespace Jumper
         private static ButtonManager buttons;
         private static List<string> Texts = new List<string>();
         private static SpriteFont font;
-        private static Vector2 centerPosition = new Vector2(400, 50);
+        private static SpriteFont fontLarge;
+        private static Vector2 titlePosition = new Vector2(400, 40);
+        private static Vector2 centerPosition = new Vector2(400, 80);
         private static int textMargin = 20;
 
         // Load all tiles for level
-        public static void LoadContent(SpriteFont font)
+        public static void LoadContent(SpriteFont font, SpriteFont fontLarge)
         {
             Credits.font = font;
+            Credits.fontLarge = fontLarge;
 
             // Set up buttons
             buttons = new ButtonManager(new Vector2(400, 410), font);
             buttons.AddButton("BACK");
 
             // Text to be shown
-            Texts.Add("CREDITS");
-            Texts.Add("");
+            // "{" Replaced with "Ä" in font texture
+            // "}" Replaced with "É" in font texture
             Texts.Add("PROGRAMMED BY:");
             Texts.Add("OLLE ASTR}");
             Texts.Add("");
@@ -45,6 +48,11 @@ namespace Jumper
             Texts.Add("");
             Texts.Add("SPECIAL THANKS:");
             Texts.Add("LBS TROLLH{TTAN");
+
+            // Calculate and save centered position of title
+            Vector2 titleSize = fontLarge.MeasureString("CREDITS");
+            Vector2 titleCenteredPosition = new Vector2(titlePosition.X - (titleSize.X / 2), titlePosition.Y - (titleSize.Y / 2));
+            titlePosition = titleCenteredPosition;
         }
 
         // Update
@@ -63,6 +71,12 @@ namespace Jumper
         {
             buttons.Draw(spriteBatch);
 
+            // Draw title
+            spriteBatch.DrawString(fontLarge, "CREDITS", titlePosition - new Vector2(+2, +2), new Color(34, 190, 171, 220));
+            spriteBatch.DrawString(fontLarge, "CREDITS", titlePosition - new Vector2(-2, -2), new Color(255, 33, 33, 150));
+            spriteBatch.DrawString(fontLarge, "CREDITS", titlePosition, new Color(36, 36, 36));
+
+            // Draw rest of the text
             for (int i = 0; i < Texts.Count; i++)
             {
                 // String size

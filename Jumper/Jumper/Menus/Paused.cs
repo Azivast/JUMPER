@@ -13,20 +13,30 @@ namespace Jumper
     {
         private static ButtonManager buttons;
         private static SpriteFont font;
+        private static SpriteFont fontLarge;
+        private static Vector2 titlePosition = new Vector2(400, 130);
+        private static PlayerManager player;
 
         // Load all tiles for level
-        public static void LoadContent(SpriteFont font)
+        public static void LoadContent(SpriteFont font, SpriteFont fontLarge, PlayerManager player)
         {
             Paused.font = font;
+            Paused.fontLarge = fontLarge;
+            Paused.player = player;
 
             // Set up buttons
-            buttons = new ButtonManager(new Vector2(400, 220), font);
+            buttons = new ButtonManager(new Vector2(400, 200), font);
             buttons.textColor = Color.White;
 
             buttons.AddButton("CONTINUE");
             buttons.AddButton("RESTART LEVEL");
             buttons.AddButton("MAIN MENU");
             buttons.AddButton("EXIT");
+
+            // Calculate and save centered position of title
+            Vector2 titleSize = fontLarge.MeasureString("PAUSED");
+            Vector2 titleCenteredPosition = new Vector2(titlePosition.X - (titleSize.X / 2), titlePosition.Y - (titleSize.Y / 2));
+            titlePosition = titleCenteredPosition;
         }
 
         // Update
@@ -54,9 +64,9 @@ namespace Jumper
                         Game1.gameState = Game1.GameState.Playing;
                         break;
                     case 1:
-                        // Go back one level (On all chapters since current chapter cant be determined)
-                        Game1.C1Level--;
-                        Game1.C2Level--;
+                        // Kill the player to restart level
+                        player.KillPlayer();
+
                         // Change to playing
                         Game1.gameState = Game1.GameState.Playing;
                         break;
@@ -76,6 +86,11 @@ namespace Jumper
         {
             buttons.Draw(spriteBatch);
             spriteBatch.DrawString(font, "", new Vector2(540, 455), Color.White);
+
+            // Draw title
+            spriteBatch.DrawString(fontLarge, "PAUSED", titlePosition - new Vector2(+2, +2), new Color(34, 190, 171, 220));
+            spriteBatch.DrawString(fontLarge, "PAUSED", titlePosition - new Vector2(-2, -2), new Color(255, 33, 33, 200));
+            spriteBatch.DrawString(fontLarge, "PAUSED", titlePosition, Color.White);
         }
     }
 }

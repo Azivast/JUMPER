@@ -38,9 +38,11 @@ namespace Jumper
         private Texture2D bgWin;
         private Texture2D bgGameOver;
         private Texture2D crtOverlay;
+        private Texture2D pausedOverlay;
 
-        // Font
-        private SpriteFont kongtextFont;
+        // Fonts
+        private SpriteFont kongtextFont10;
+        private SpriteFont kongtextFont18;
 
 
         // Which game state to start in
@@ -171,20 +173,22 @@ namespace Jumper
             bgWin = Content.Load<Texture2D>(@"Backgrounds/Win");
             bgGameOver = Content.Load<Texture2D>(@"Backgrounds/Game over");
             crtOverlay = Content.Load<Texture2D>(@"Backgrounds/CRT overlay");
+            pausedOverlay = Content.Load<Texture2D>(@"Backgrounds/Paused overlay");
 
             // Font
-            kongtextFont = Content.Load<SpriteFont>(@"Fonts\kongtext");
+            kongtextFont10 = Content.Load<SpriteFont>(@"Fonts\kongtext");
+            kongtextFont18 = Content.Load<SpriteFont>(@"Fonts\kongtext18");
 
             // Load contents in soundManager
             SoundManager.LoadContent(Content, GraphicsDevice);
 
 
             // Load Menus
-            MainMenu.LoadContent(kongtextFont);
-            Credits.LoadContent(kongtextFont);
-            Options.LoadContent(kongtextFont);
-            GameOver.LoadContent(kongtextFont);
-            Paused.LoadContent(kongtextFont);
+            MainMenu.LoadContent(kongtextFont10);
+            Credits.LoadContent(kongtextFont10, kongtextFont18);
+            Options.LoadContent(kongtextFont10, kongtextFont18);
+            GameOver.LoadContent(kongtextFont10);
+            Paused.LoadContent(kongtextFont10, kongtextFont18, player);
         }
 
         /// <summary>
@@ -604,6 +608,9 @@ namespace Jumper
                     // Draw everything from "Playing"
                     DrawGameStatePlaying(spriteBatch);
 
+                    // Draw overlay which dims the screen
+                    spriteBatch.Draw(pausedOverlay, Vector2.Zero, Color.White);
+
                     // Draw menu
                     Paused.Draw(spriteBatch);
                     break;
@@ -638,7 +645,7 @@ namespace Jumper
         public Vector2 CenterText(Vector2 position, string text)
         {
             Vector2 centered = position;
-            Vector2 textSize = kongtextFont.MeasureString(text);
+            Vector2 textSize = kongtextFont10.MeasureString(text);
             centered.X -= (textSize.X / 2);
             //centered.Y -= (textSize.Y / 2);
 
@@ -666,10 +673,10 @@ namespace Jumper
                     Level1.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
                 case Chapter1.Level2:
                     // Draw managers, player etc
@@ -684,10 +691,10 @@ namespace Jumper
                     Level2.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
                 case Chapter1.Level3:
                     // Draw managers, player etc
@@ -702,10 +709,10 @@ namespace Jumper
                     Level3.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
                 case Chapter1.Level4:
                     // Draw managers, player etc
@@ -720,10 +727,10 @@ namespace Jumper
                     Level4.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
                 case Chapter1.Level5:
                     // Draw managers, player etc
@@ -738,10 +745,10 @@ namespace Jumper
                     Level5.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
                 case Chapter1.Level6:
                     // Draw managers, player etc
@@ -756,10 +763,10 @@ namespace Jumper
                     Level6.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
                 case Chapter1.Level7:
                     // Draw managers, player etc
@@ -774,10 +781,10 @@ namespace Jumper
                     Level7.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
                 case Chapter1.Level8:
                     // Draw managers, player etc
@@ -792,10 +799,10 @@ namespace Jumper
                     Level8.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
 
                 case Chapter1.LevelTest:
@@ -811,10 +818,10 @@ namespace Jumper
                     LevelTest.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
                     // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
             }
 
