@@ -12,7 +12,7 @@ namespace Jumper
     static class Level2
     {
         // Position of player
-        public static Vector2 PlayerPoisition = new Vector2(25, 175);
+        public static Vector2 PlayerPosition = new Vector2(25, 175);
         public static float LevelTime = 60;
 
         public static TileManager tileManager;
@@ -189,7 +189,7 @@ namespace Jumper
         // Position player
         public static void PositionPlayer(PlayerManager player)
         {
-            player.Poisition = PlayerPoisition;
+            player.Position = PlayerPosition;
         }
 
         // Position door and spawn keys

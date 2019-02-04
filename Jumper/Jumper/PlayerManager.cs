@@ -28,7 +28,7 @@ namespace Jumper
         public bool CollidesLeft;
 
         // Defines get/sets
-        public Vector2 Poisition
+        public Vector2 Position
         {
             get { return Sprite.Position; }
             set { Sprite.Position = value; }

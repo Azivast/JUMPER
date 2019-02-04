@@ -139,7 +139,7 @@ namespace Jumper
         // Position player
         public static void PositionPlayer(PlayerManager player)
         {
-            player.Poisition = PlayerPoisition;
+            player.Position = PlayerPoisition;
         }
 
         // Position door and spawn keys
