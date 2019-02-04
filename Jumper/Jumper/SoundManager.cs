@@ -15,6 +15,7 @@ namespace Jumper
         public static SoundEffect PickUp;
         public static SoundEffect NextLevel;
         public static SoundEffect Win;
+        public static SoundEffect Text;
         private static SoundEffect music;
         public static SoundEffectInstance MusicInstance;
 
@@ -27,6 +28,7 @@ namespace Jumper
             PickUp = Content.Load<SoundEffect>(@"Sounds/Pick Up");
             NextLevel = Content.Load<SoundEffect>(@"Sounds/NextLevel");
             Win = Content.Load<SoundEffect>(@"Sounds/win");
+            Text = Content.Load<SoundEffect>(@"Sounds/text");
 
             // Load music and loop it
             music = Content.Load<SoundEffect>(@"Sounds/Ozzed - Lugn Techno");

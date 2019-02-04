@@ -16,6 +16,7 @@ namespace Jumper
         public static float LevelTime = 60;
 
         public static TileManager tileManager;
+        public static TypeText TutorialText;
 
         // Load all tiles for level
         public static void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -204,6 +205,15 @@ namespace Jumper
         // Spawn hearts for level
         public static void SpawnHearts(HeartManager heartManager)
         {
+        }
+
+        // Setup the tutorial text
+        public static void SetupText(SpriteFont font)
+        {
+            TutorialText = new TypeText("Look! Some of these blocks are damaged. If you make contact\n" +
+                                        "they will disappear for a short amount of time.\n" +
+                                        "Also, avoid those spikes, they look deadly.\n" +
+                                        "From here on out: Good Luck!", 2, new Vector2(50, 40), font);
         }
     }
 }

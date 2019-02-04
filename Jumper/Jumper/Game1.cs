@@ -153,6 +153,10 @@ namespace Jumper
             collisionManager = new CollisionManager(player, enemyManager, breakableManager, spikeManager, keyDoor,
                 heartManager);
 
+            // Font
+            kongtextFont10 = Content.Load<SpriteFont>(@"Fonts\kongtext10");
+            kongtextFont18 = Content.Load<SpriteFont>(@"Fonts\kongtext18");
+
             // Load content for each level
             Level1.LoadContent(Content, GraphicsDevice);
             Level2.LoadContent(Content, GraphicsDevice);
@@ -174,10 +178,6 @@ namespace Jumper
             bgGameOver = Content.Load<Texture2D>(@"Backgrounds/Game over");
             crtOverlay = Content.Load<Texture2D>(@"Backgrounds/CRT overlay");
             pausedOverlay = Content.Load<Texture2D>(@"Backgrounds/Paused overlay");
-
-            // Font
-            kongtextFont10 = Content.Load<SpriteFont>(@"Fonts\kongtext");
-            kongtextFont18 = Content.Load<SpriteFont>(@"Fonts\kongtext18");
 
             // Load contents in soundManager
             SoundManager.LoadContent(Content, GraphicsDevice);
@@ -276,6 +276,8 @@ namespace Jumper
                                     Level1.SpawnEnemies(enemyManager);
                                     Level1.SpawnSpikes(spikeManager);
                                     Level1.SpawnHearts(heartManager);
+                                    Level1.SetupText(kongtextFont10);
+                                    Level1.TutorialText.ShowText();
                                     // Move to next level
                                     C1Level++;
                                     break;
@@ -287,6 +289,8 @@ namespace Jumper
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
+
+                                    Level1.TutorialText.Update(gameTime);
                                     break;
 
                                 case Chapter1.PreLevel2:
@@ -304,6 +308,8 @@ namespace Jumper
                                     Level2.SpawnEnemies(enemyManager);
                                     Level2.SpawnSpikes(spikeManager);
                                     Level2.SpawnHearts(heartManager);
+                                    Level2.SetupText(kongtextFont10);
+                                    Level2.TutorialText.ShowText();
                                     // Move to next level
                                     C1Level++;
                                     break;
@@ -315,6 +321,8 @@ namespace Jumper
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
+
+                                    Level2.TutorialText.Update(gameTime);
                                     break;
 
                                 case Chapter1.PreLevel3:
@@ -672,6 +680,9 @@ namespace Jumper
                     // Draw all tiles for level
                     Level1.tileManager.Draw(spriteBatch);
 
+                    // Draw tutorial text
+                    Level1.TutorialText.Draw(spriteBatch);
+
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
                     spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
@@ -689,6 +700,9 @@ namespace Jumper
 
                     // Draw all tiles for level
                     Level2.tileManager.Draw(spriteBatch);
+
+                    // Draw tutorial text
+                    Level2.TutorialText.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);

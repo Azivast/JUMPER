@@ -16,6 +16,7 @@ namespace Jumper
         public static float LevelTime = 60;
 
         public static TileManager tileManager;
+        public static TypeText TutorialText;
 
         // Load all tiles for level
         public static void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -100,6 +101,14 @@ namespace Jumper
         public static void SpawnHearts(HeartManager heartManager)
         {
             //heartManager.SpawnHeart(new Vector2(x, y));
+        }
+
+        // Setup the tutorial text
+        public static void SetupText(SpriteFont font)
+        {
+            TutorialText = new TypeText("Welcome to JUMPER! Your mission is to reach the elevator on\neach level. However, in order to use it you will need to collect\n" +
+            "all keycards. Avoid contact with 'glitches' to stay alive.\n" +
+            "But be quick, time is limited.", 2, new Vector2(50, 40),  font);
         }
     }
 }
