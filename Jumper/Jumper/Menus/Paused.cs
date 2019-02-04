@@ -64,11 +64,11 @@ namespace Jumper
                         Game1.gameState = Game1.GameState.Playing;
                         break;
                     case 1:
-                        // Kill the player to restart level
-                        player.KillPlayer();
-
                         // Change to playing
                         Game1.gameState = Game1.GameState.Playing;
+
+                        // Kill the player to restart level
+                        player.KillPlayer();
                         break;
                     case 2:
                         Game1.gameState = Game1.GameState.MainMenu;
