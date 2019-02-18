@@ -74,15 +74,17 @@
   <ItemGroup>
     <Compile Include="ButtonManager.cs" />
     <Compile Include="HeartManager.cs" />
-    <Compile Include="Levels\Level8.cs" />
-    <Compile Include="Levels\Level7.cs" />
-    <Compile Include="Levels\LevelTest.cs" />
-    <Compile Include="Levels\Level5.cs" />
-    <Compile Include="Levels\Level3.cs" />
-    <Compile Include="Levels\Level2.cs" />
-    <Compile Include="Levels\Level6.cs" />
-    <Compile Include="Levels\Level4.cs" />
+    <Compile Include="Levels\Chap1\Level8.cs" />
+    <Compile Include="Levels\Chap1\Level7.cs" />
+    <Compile Include="Levels\Chap1\LevelTest.cs" />
+    <Compile Include="Levels\Chap1\Level5.cs" />
+    <Compile Include="Levels\Chap1\Level3.cs" />
+    <Compile Include="Levels\Chap1\Level2.cs" />
+    <Compile Include="Levels\Chap1\Level6.cs" />
+    <Compile Include="Levels\Chap1\Level4.cs" />
+    <Compile Include="Levels\Chap2\Level1.cs" />
     <Compile Include="Menus\Credits.cs" />
+    <Compile Include="Menus\ChapterSelect.cs" />
     <Compile Include="Menus\Paused.cs" />
     <Compile Include="Menus\GameOver.cs" />
     <Compile Include="Menus\Options.cs" />
@@ -96,7 +98,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="InputManager.cs" />
-    <Compile Include="Levels\Level1.cs" />
+    <Compile Include="Levels\Chap1\Level1.cs" />
     <Compile Include="PlayerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

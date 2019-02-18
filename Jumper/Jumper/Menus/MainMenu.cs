@@ -46,8 +46,7 @@ namespace Jumper
                 switch (buttons.SelectedButton)
                 {
                     case 0:
-                        Game1.gameState = Game1.GameState.Playing;
-                        Game1.C1Level = Game1.Chapter1.PreLevel1;
+                        Game1.gameState = Game1.GameState.ChapterSelect;
                         break;
                     case 1:
                         Game1.gameState = Game1.GameState.Credits;

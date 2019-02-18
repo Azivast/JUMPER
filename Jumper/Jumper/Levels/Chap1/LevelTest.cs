@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Jumper
 {
-    static class LevelTest
+    static class C1LevelTest
     {
         // Position of player
         public static Vector2 PlayerPoisition = new Vector2(775, 380);

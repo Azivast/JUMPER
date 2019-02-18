@@ -61,6 +61,7 @@ namespace Jumper
         public enum GameState
         {
             MainMenu,
+            ChapterSelect,
             Credits,
             Options,
             Playing,
@@ -91,14 +92,14 @@ namespace Jumper
             Level6,
             PreLevel7,
             Level7,
-            PreLevel8,
-            Level8,
+            PreC1Level8,
+            C1Level8,
             PreLevel9,
             Level9,
             PreLevel10,
             Level10,
-            PreLevelTest,
-            LevelTest
+            PreC1LevelTest,
+            C1LevelTest
         };
 
         public Game1()
@@ -158,17 +159,17 @@ namespace Jumper
             kongtextFont18 = Content.Load<SpriteFont>(@"Fonts\kongtext18");
 
             // Load content for each level
-            Level1.LoadContent(Content, GraphicsDevice);
-            Level2.LoadContent(Content, GraphicsDevice);
-            Level3.LoadContent(Content, GraphicsDevice);
-            Level4.LoadContent(Content, GraphicsDevice);
-            Level5.LoadContent(Content, GraphicsDevice);
-            Level6.LoadContent(Content, GraphicsDevice);
-            Level7.LoadContent(Content, GraphicsDevice);
-            Level8.LoadContent(Content, GraphicsDevice);
+            C1Level1.LoadContent(Content, GraphicsDevice);
+            C1Level2.LoadContent(Content, GraphicsDevice);
+            C1Level3.LoadContent(Content, GraphicsDevice);
+            C1Level4.LoadContent(Content, GraphicsDevice);
+            C1Level5.LoadContent(Content, GraphicsDevice);
+            C1Level6.LoadContent(Content, GraphicsDevice);
+            C1Level7.LoadContent(Content, GraphicsDevice);
+            C1Level8.LoadContent(Content, GraphicsDevice);
             //Level9.LoadContent(Content, GraphicsDevice);
             //Level10.LoadContent(Content, GraphicsDevice);
-            LevelTest.LoadContent(Content, GraphicsDevice);
+            C1LevelTest.LoadContent(Content, GraphicsDevice);
 
             // Load backgrounds
             bgLevel = Content.Load<Texture2D>(@"Backgrounds/levelbg");
@@ -185,6 +186,7 @@ namespace Jumper
 
             // Load Menus
             MainMenu.LoadContent(kongtextFont10);
+            ChapterSelect.LoadContent(Content, kongtextFont10);
             Credits.LoadContent(kongtextFont10, kongtextFont18);
             Options.LoadContent(kongtextFont10, kongtextFont18);
             GameOver.LoadContent(kongtextFont10);
@@ -233,15 +235,19 @@ namespace Jumper
             //if (InputManager.IsTapped(Keys.NumPad7))
             //    C1Level = Chapter1.PreLevel7;
             //if (InputManager.IsTapped(Keys.NumPad8))
-            //    C1Level = Chapter1.PreLevel8;
+            //    C1Level = Chapter1.PreC1Level8;
             //if (InputManager.IsTapped(Keys.NumPad0))
-            //    C1Level = Chapter1.PreLevelTest;
+            //    C1Level = Chapter1.PreC1LevelTest;
 
             // Gamestate specific code
             switch (gameState)
             {
                 case GameState.MainMenu:
                     MainMenu.Update(gameTime);
+                    break;
+
+                case GameState.ChapterSelect:
+                    ChapterSelect.Update(gameTime);
                     break;
 
                 case GameState.Credits:
@@ -269,20 +275,20 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level1.LevelTime;
-                                    Level1.PositionPlayer(player);
-                                    Level1.SpawnDoorAndKeys(keyDoor);
-                                    Level1.SpawnBreakables(breakableManager);
-                                    Level1.SpawnEnemies(enemyManager);
-                                    Level1.SpawnSpikes(spikeManager);
-                                    Level1.SpawnHearts(heartManager);
-                                    Level1.SetupText(kongtextFont10);
-                                    Level1.TutorialText.ShowText();
+                                    player.LevelTimeLeft = C1Level1.LevelTime;
+                                    C1Level1.PositionPlayer(player);
+                                    C1Level1.SpawnDoorAndKeys(keyDoor);
+                                    C1Level1.SpawnBreakables(breakableManager);
+                                    C1Level1.SpawnEnemies(enemyManager);
+                                    C1Level1.SpawnSpikes(spikeManager);
+                                    C1Level1.SpawnHearts(heartManager);
+                                    C1Level1.SetupText(kongtextFont10);
+                                    C1Level1.TutorialText.ShowText();
                                     // Move to next level
                                     C1Level++;
                                     break;
                                 case Chapter1.Level1:
-                                    collisionManager.Update(gameTime, Level1.tileManager, keyDoor, spikeManager);
+                                    collisionManager.Update(gameTime, C1Level1.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -290,7 +296,7 @@ namespace Jumper
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
 
-                                    Level1.TutorialText.Update(gameTime);
+                                    C1Level1.TutorialText.Update(gameTime);
                                     break;
 
                                 case Chapter1.PreLevel2:
@@ -301,20 +307,20 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level2.LevelTime;
-                                    Level2.PositionPlayer(player);
-                                    Level2.SpawnDoorAndKeys(keyDoor);
-                                    Level2.SpawnBreakables(breakableManager);
-                                    Level2.SpawnEnemies(enemyManager);
-                                    Level2.SpawnSpikes(spikeManager);
-                                    Level2.SpawnHearts(heartManager);
-                                    Level2.SetupText(kongtextFont10);
-                                    Level2.TutorialText.ShowText();
+                                    player.LevelTimeLeft = C1Level2.LevelTime;
+                                    C1Level2.PositionPlayer(player);
+                                    C1Level2.SpawnDoorAndKeys(keyDoor);
+                                    C1Level2.SpawnBreakables(breakableManager);
+                                    C1Level2.SpawnEnemies(enemyManager);
+                                    C1Level2.SpawnSpikes(spikeManager);
+                                    C1Level2.SpawnHearts(heartManager);
+                                    C1Level2.SetupText(kongtextFont10);
+                                    C1Level2.TutorialText.ShowText();
                                     // Move to next level
                                     C1Level++;
                                     break;
                                 case Chapter1.Level2:
-                                    collisionManager.Update(gameTime, Level2.tileManager, keyDoor, spikeManager);
+                                    collisionManager.Update(gameTime, C1Level2.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -322,7 +328,7 @@ namespace Jumper
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
 
-                                    Level2.TutorialText.Update(gameTime);
+                                    C1Level2.TutorialText.Update(gameTime);
                                     break;
 
                                 case Chapter1.PreLevel3:
@@ -333,18 +339,18 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level3.LevelTime;
-                                    Level3.PositionPlayer(player);
-                                    Level3.SpawnDoorAndKeys(keyDoor);
-                                    Level3.SpawnBreakables(breakableManager);
-                                    Level3.SpawnEnemies(enemyManager);
-                                    Level3.SpawnSpikes(spikeManager);
-                                    Level3.SpawnHearts(heartManager);
+                                    player.LevelTimeLeft = C1Level3.LevelTime;
+                                    C1Level3.PositionPlayer(player);
+                                    C1Level3.SpawnDoorAndKeys(keyDoor);
+                                    C1Level3.SpawnBreakables(breakableManager);
+                                    C1Level3.SpawnEnemies(enemyManager);
+                                    C1Level3.SpawnSpikes(spikeManager);
+                                    C1Level3.SpawnHearts(heartManager);
                                     // Move to next level
                                     C1Level++;
                                     break;
                                 case Chapter1.Level3:
-                                    collisionManager.Update(gameTime, Level3.tileManager, keyDoor, spikeManager);
+                                    collisionManager.Update(gameTime, C1Level3.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -361,18 +367,18 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level4.LevelTime;
-                                    Level4.PositionPlayer(player);
-                                    Level4.SpawnDoorAndKeys(keyDoor);
-                                    Level4.SpawnBreakables(breakableManager);
-                                    Level4.SpawnEnemies(enemyManager);
-                                    Level4.SpawnSpikes(spikeManager);
-                                    Level4.SpawnHearts(heartManager);
+                                    player.LevelTimeLeft = C1Level4.LevelTime;
+                                    C1Level4.PositionPlayer(player);
+                                    C1Level4.SpawnDoorAndKeys(keyDoor);
+                                    C1Level4.SpawnBreakables(breakableManager);
+                                    C1Level4.SpawnEnemies(enemyManager);
+                                    C1Level4.SpawnSpikes(spikeManager);
+                                    C1Level4.SpawnHearts(heartManager);
                                     // Move to next level
                                     C1Level++;
                                     break;
                                 case Chapter1.Level4:
-                                    collisionManager.Update(gameTime, Level4.tileManager, keyDoor, spikeManager);
+                                    collisionManager.Update(gameTime, C1Level4.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -389,18 +395,18 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level5.LevelTime;
-                                    Level5.PositionPlayer(player);
-                                    Level5.SpawnDoorAndKeys(keyDoor);
-                                    Level5.SpawnBreakables(breakableManager);
-                                    Level5.SpawnEnemies(enemyManager);
-                                    Level5.SpawnSpikes(spikeManager);
-                                    Level5.SpawnHearts(heartManager);
+                                    player.LevelTimeLeft = C1Level5.LevelTime;
+                                    C1Level5.PositionPlayer(player);
+                                    C1Level5.SpawnDoorAndKeys(keyDoor);
+                                    C1Level5.SpawnBreakables(breakableManager);
+                                    C1Level5.SpawnEnemies(enemyManager);
+                                    C1Level5.SpawnSpikes(spikeManager);
+                                    C1Level5.SpawnHearts(heartManager);
                                     // Move to next level
                                     C1Level++;
                                     break;
                                 case Chapter1.Level5:
-                                    collisionManager.Update(gameTime, Level5.tileManager, keyDoor, spikeManager);
+                                    collisionManager.Update(gameTime, C1Level5.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -417,19 +423,19 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level6.LevelTime;
-                                    Level6.PositionPlayer(player);
-                                    Level6.SpawnDoorAndKeys(keyDoor);
-                                    Level6.SpawnBreakables(breakableManager);
-                                    Level6.SpawnEnemies(enemyManager);
-                                    Level6.SpawnSpikes(spikeManager);
-                                    Level6.SpawnHearts(heartManager);
+                                    player.LevelTimeLeft = C1Level6.LevelTime;
+                                    C1Level6.PositionPlayer(player);
+                                    C1Level6.SpawnDoorAndKeys(keyDoor);
+                                    C1Level6.SpawnBreakables(breakableManager);
+                                    C1Level6.SpawnEnemies(enemyManager);
+                                    C1Level6.SpawnSpikes(spikeManager);
+                                    C1Level6.SpawnHearts(heartManager);
                                     // Move to next level
                                     C1Level++;
                                     break;
 
                                 case Chapter1.Level6:
-                                    collisionManager.Update(gameTime, Level6.tileManager, keyDoor, spikeManager);
+                                    collisionManager.Update(gameTime, C1Level6.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -446,19 +452,19 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level7.LevelTime;
-                                    Level7.PositionPlayer(player);
-                                    Level7.SpawnDoorAndKeys(keyDoor);
-                                    Level7.SpawnBreakables(breakableManager);
-                                    Level7.SpawnEnemies(enemyManager);
-                                    Level7.SpawnSpikes(spikeManager);
-                                    Level7.SpawnHearts(heartManager);
+                                    player.LevelTimeLeft = C1Level7.LevelTime;
+                                    C1Level7.PositionPlayer(player);
+                                    C1Level7.SpawnDoorAndKeys(keyDoor);
+                                    C1Level7.SpawnBreakables(breakableManager);
+                                    C1Level7.SpawnEnemies(enemyManager);
+                                    C1Level7.SpawnSpikes(spikeManager);
+                                    C1Level7.SpawnHearts(heartManager);
                                     // Move to next level
                                     C1Level++;
                                     break;
 
                                 case Chapter1.Level7:
-                                    collisionManager.Update(gameTime, Level7.tileManager, keyDoor, spikeManager);
+                                    collisionManager.Update(gameTime, C1Level7.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -467,7 +473,7 @@ namespace Jumper
                                     breakableManager.Update(gameTime);
                                     break;
 
-                                case Chapter1.PreLevel8:
+                                case Chapter1.PreC1Level8:
                                     // Reset classes from previous levels
                                     enemyManager.Reset();
                                     breakableManager.Reset();
@@ -475,19 +481,19 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = Level8.LevelTime;
-                                    Level8.PositionPlayer(player);
-                                    Level8.SpawnDoorAndKeys(keyDoor);
-                                    Level8.SpawnBreakables(breakableManager);
-                                    Level8.SpawnEnemies(enemyManager);
-                                    Level8.SpawnSpikes(spikeManager);
-                                    Level8.SpawnHearts(heartManager);
+                                    player.LevelTimeLeft = C1Level8.LevelTime;
+                                    C1Level8.PositionPlayer(player);
+                                    C1Level8.SpawnDoorAndKeys(keyDoor);
+                                    C1Level8.SpawnBreakables(breakableManager);
+                                    C1Level8.SpawnEnemies(enemyManager);
+                                    C1Level8.SpawnSpikes(spikeManager);
+                                    C1Level8.SpawnHearts(heartManager);
                                     // Move to next level
                                     C1Level++;
                                     break;
 
-                                case Chapter1.Level8:
-                                    collisionManager.Update(gameTime, Level8.tileManager, keyDoor, spikeManager);
+                                case Chapter1.C1Level8:
+                                    collisionManager.Update(gameTime, C1Level8.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -496,7 +502,7 @@ namespace Jumper
                                     breakableManager.Update(gameTime);
                                     break;
 
-                                case Chapter1.PreLevelTest:
+                                case Chapter1.PreC1LevelTest:
                                     // Reset classes from previous levels
                                     enemyManager.Reset();
                                     breakableManager.Reset();
@@ -504,18 +510,18 @@ namespace Jumper
                                     spikeManager.Reset();
                                     heartManager.Reset();
 
-                                    player.LevelTimeLeft = LevelTest.LevelTime;
-                                    LevelTest.PositionPlayer(player);
-                                    LevelTest.SpawnDoorAndKeys(keyDoor);
-                                    LevelTest.SpawnBreakables(breakableManager);
-                                    LevelTest.SpawnEnemies(enemyManager);
-                                    LevelTest.SpawnSpikes(spikeManager);
-                                    LevelTest.SpawnHearts(heartManager);
+                                    player.LevelTimeLeft = C1LevelTest.LevelTime;
+                                    C1LevelTest.PositionPlayer(player);
+                                    C1LevelTest.SpawnDoorAndKeys(keyDoor);
+                                    C1LevelTest.SpawnBreakables(breakableManager);
+                                    C1LevelTest.SpawnEnemies(enemyManager);
+                                    C1LevelTest.SpawnSpikes(spikeManager);
+                                    C1LevelTest.SpawnHearts(heartManager);
                                     // Move to next level
                                     C1Level++;
                                     break;
-                                case Chapter1.LevelTest:
-                                    collisionManager.Update(gameTime, LevelTest.tileManager, keyDoor, spikeManager);
+                                case Chapter1.C1LevelTest:
+                                    collisionManager.Update(gameTime, C1LevelTest.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
                                     player.Update(gameTime);
@@ -589,6 +595,11 @@ namespace Jumper
                 case GameState.MainMenu:
                     spriteBatch.Draw(bgMainMenu, Vector2.Zero, Color.White);
                     MainMenu.Draw(spriteBatch);
+                    break;
+
+                case GameState.ChapterSelect:
+                    spriteBatch.Draw(bgMenu, Vector2.Zero, Color.White);
+                    ChapterSelect.Draw(spriteBatch);
                     break;
 
                 case GameState.Credits:
@@ -678,10 +689,10 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level1.tileManager.Draw(spriteBatch);
+                    C1Level1.tileManager.Draw(spriteBatch);
 
                     // Draw tutorial text
-                    Level1.TutorialText.Draw(spriteBatch);
+                    C1Level1.TutorialText.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -699,10 +710,10 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level2.tileManager.Draw(spriteBatch);
+                    C1Level2.tileManager.Draw(spriteBatch);
 
                     // Draw tutorial text
-                    Level2.TutorialText.Draw(spriteBatch);
+                    C1Level2.TutorialText.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -720,7 +731,7 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level3.tileManager.Draw(spriteBatch);
+                    C1Level3.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -738,7 +749,7 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level4.tileManager.Draw(spriteBatch);
+                    C1Level4.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -756,7 +767,7 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level5.tileManager.Draw(spriteBatch);
+                    C1Level5.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -774,7 +785,7 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level6.tileManager.Draw(spriteBatch);
+                    C1Level6.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -792,7 +803,7 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level7.tileManager.Draw(spriteBatch);
+                    C1Level7.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -800,7 +811,7 @@ namespace Jumper
                     // Draw the level name centered
                     spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
-                case Chapter1.Level8:
+                case Chapter1.C1Level8:
                     // Draw managers, player etc
                     keyDoor.Draw(spriteBatch);
                     player.Draw(spriteBatch);
@@ -810,7 +821,7 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    Level8.tileManager.Draw(spriteBatch);
+                    C1Level8.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
@@ -819,7 +830,7 @@ namespace Jumper
                     spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
                     break;
 
-                case Chapter1.LevelTest:
+                case Chapter1.C1LevelTest:
                     // Draw managers, player etc
                     keyDoor.Draw(spriteBatch);
                     player.Draw(spriteBatch);
@@ -829,7 +840,7 @@ namespace Jumper
                     heartManager.Draw(spriteBatch);
 
                     // Draw all tiles for level
-                    LevelTest.tileManager.Draw(spriteBatch);
+                    C1LevelTest.tileManager.Draw(spriteBatch);
 
                     // Draw lives and time left
                     spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
