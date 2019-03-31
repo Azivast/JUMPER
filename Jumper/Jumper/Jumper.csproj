@@ -82,6 +82,13 @@
     <Compile Include="Levels\Chap1\Level2.cs" />
     <Compile Include="Levels\Chap1\Level6.cs" />
     <Compile Include="Levels\Chap1\Level4.cs" />
+    <Compile Include="Levels\Chap2\Level8.cs" />
+    <Compile Include="Levels\Chap2\Level7.cs" />
+    <Compile Include="Levels\Chap2\Level6.cs" />
+    <Compile Include="Levels\Chap2\Level5.cs" />
+    <Compile Include="Levels\Chap2\Level4.cs" />
+    <Compile Include="Levels\Chap2\Level3.cs" />
+    <Compile Include="Levels\Chap2\Level2.cs" />
     <Compile Include="Levels\Chap2\Level1.cs" />
     <Compile Include="Menus\Credits.cs" />
     <Compile Include="Menus\ChapterSelect.cs" />

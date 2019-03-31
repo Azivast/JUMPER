@@ -55,7 +55,7 @@ namespace Jumper
         public static Chapter1 C1Level = Chapter1.PreLevel1;
 
         // Which level state to start in
-        public static Chapter1 C2Level;
+        public static Chapter2 C2Level = Chapter2.PreLevel1;
 
         // The different game states
         public enum GameState
@@ -92,14 +92,38 @@ namespace Jumper
             Level6,
             PreLevel7,
             Level7,
-            PreC1Level8,
-            C1Level8,
+            PreLevel8,
+            Level8,
             PreLevel9,
             Level9,
             PreLevel10,
             Level10,
             PreC1LevelTest,
             C1LevelTest
+        };
+
+        public enum Chapter2
+        {
+            PreLevel1,
+            Level1,
+            PreLevel2,
+            Level2,
+            PreLevel3,
+            Level3,
+            PreLevel4,
+            Level4,
+            PreLevel5,
+            Level5,
+            PreLevel6,
+            Level6,
+            PreLevel7,
+            Level7,
+            PreLevel8,
+            Level8,
+            PreLevel9,
+            Level9,
+            PreLevel10,
+            Level10,
         };
 
         public Game1()
@@ -158,7 +182,7 @@ namespace Jumper
             kongtextFont10 = Content.Load<SpriteFont>(@"Fonts\kongtext10");
             kongtextFont18 = Content.Load<SpriteFont>(@"Fonts\kongtext18");
 
-            // Load content for each level
+            // Load content for each level in chapter 1
             C1Level1.LoadContent(Content, GraphicsDevice);
             C1Level2.LoadContent(Content, GraphicsDevice);
             C1Level3.LoadContent(Content, GraphicsDevice);
@@ -170,6 +194,18 @@ namespace Jumper
             //Level9.LoadContent(Content, GraphicsDevice);
             //Level10.LoadContent(Content, GraphicsDevice);
             C1LevelTest.LoadContent(Content, GraphicsDevice);
+
+            // Load content for each level in chapter 2
+            C2Level1.LoadContent(Content, GraphicsDevice);
+            C2Level2.LoadContent(Content, GraphicsDevice);
+            C2Level3.LoadContent(Content, GraphicsDevice);
+            C2Level4.LoadContent(Content, GraphicsDevice);
+            C2Level5.LoadContent(Content, GraphicsDevice);
+            C2Level6.LoadContent(Content, GraphicsDevice);
+            C2Level7.LoadContent(Content, GraphicsDevice);
+            C2Level8.LoadContent(Content, GraphicsDevice);
+            //C2Level9.LoadContent(Content, GraphicsDevice);
+            //C2Level10.LoadContent(Content, GraphicsDevice);
 
             // Load backgrounds
             bgLevel = Content.Load<Texture2D>(@"Backgrounds/levelbg");
@@ -217,27 +253,18 @@ namespace Jumper
             //    gameState = GameState.MainMenu;
 
             //!!DEBUG CHANGE BEFORE RELEASE!!
-            // Warp keys
-            //if (InputManager.IsTapped(Keys.NumPad1))
-            //    C1Level = Chapter1.PreLevel1;
+            //// Warp keys
             //if (InputManager.IsTapped(Keys.NumPad2))
-            //    C1Level = Chapter1.PreLevel2;
-            //if (InputManager.IsTapped(Keys.NumPad3))
-            //    C1Level = Chapter1.PreLevel3;
-            //if (InputManager.IsTapped(Keys.NumPad4))
-            //    C1Level = Chapter1.PreLevel4;
-            //if (InputManager.IsTapped(Keys.NumPad5))
-            //    C1Level = Chapter1.PreLevel5;
-            //if (InputManager.IsTapped(Keys.OemMinus))
-            //    gameState = GameState.GameOver;
-            //if (InputManager.IsTapped(Keys.NumPad6))
-            //    C1Level = Chapter1.PreLevel6;
-            //if (InputManager.IsTapped(Keys.NumPad7))
-            //    C1Level = Chapter1.PreLevel7;
-            //if (InputManager.IsTapped(Keys.NumPad8))
-            //    C1Level = Chapter1.PreC1Level8;
-            //if (InputManager.IsTapped(Keys.NumPad0))
-            //    C1Level = Chapter1.PreC1LevelTest;
+            //{
+            //    C1Level++;
+            //    C2Level++;
+            //}
+            //else if (InputManager.IsTapped(Keys.NumPad1))
+            //{
+            //    C1Level -= 3;
+            //    C2Level -= 3;
+            //}
+
 
             // Gamestate specific code
             switch (gameState)
@@ -259,6 +286,7 @@ namespace Jumper
                     break;
 
                 case GameState.Playing:
+                    // Selected chapter
                     switch (Chapter)
                     {
                         // CHAPTER 1
@@ -473,7 +501,7 @@ namespace Jumper
                                     breakableManager.Update(gameTime);
                                     break;
 
-                                case Chapter1.PreC1Level8:
+                                case Chapter1.PreLevel8:
                                     // Reset classes from previous levels
                                     enemyManager.Reset();
                                     breakableManager.Reset();
@@ -492,7 +520,7 @@ namespace Jumper
                                     C1Level++;
                                     break;
 
-                                case Chapter1.C1Level8:
+                                case Chapter1.Level8:
                                     collisionManager.Update(gameTime, C1Level8.tileManager, keyDoor, spikeManager);
 
                                     // Update the player
@@ -532,6 +560,243 @@ namespace Jumper
                             }
 
                             break;
+
+                        // CHAPTER 2
+                        case Chapters.Chapter2:
+                            switch (C2Level)
+                            {
+                                case Chapter2.PreLevel1:
+                                    // Reset player (Only run before level 1)
+                                    player.Reset();
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level1.LevelTime;
+                                    C2Level1.PositionPlayer(player);
+                                    C2Level1.SpawnDoorAndKeys(keyDoor);
+                                    C2Level1.SpawnBreakables(breakableManager);
+                                    C2Level1.SpawnEnemies(enemyManager);
+                                    C2Level1.SpawnSpikes(spikeManager);
+                                    C2Level1.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+                                case Chapter2.Level1:
+                                    collisionManager.Update(gameTime, C2Level1.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+
+                                    break;
+
+                                case Chapter2.PreLevel2:
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level2.LevelTime;
+                                    C2Level2.PositionPlayer(player);
+                                    C2Level2.SpawnDoorAndKeys(keyDoor);
+                                    C2Level2.SpawnBreakables(breakableManager);
+                                    C2Level2.SpawnEnemies(enemyManager);
+                                    C2Level2.SpawnSpikes(spikeManager);
+                                    C2Level2.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+                                case Chapter2.Level2:
+                                    collisionManager.Update(gameTime, C2Level2.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+                                    break;
+
+                                case Chapter2.PreLevel3:
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level3.LevelTime;
+                                    C2Level3.PositionPlayer(player);
+                                    C2Level3.SpawnDoorAndKeys(keyDoor);
+                                    C2Level3.SpawnBreakables(breakableManager);
+                                    C2Level3.SpawnEnemies(enemyManager);
+                                    C2Level3.SpawnSpikes(spikeManager);
+                                    C2Level3.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+                                case Chapter2.Level3:
+                                    collisionManager.Update(gameTime, C2Level3.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+                                    break;
+
+                                case Chapter2.PreLevel4:
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level4.LevelTime;
+                                    C2Level4.PositionPlayer(player);
+                                    C2Level4.SpawnDoorAndKeys(keyDoor);
+                                    C2Level4.SpawnBreakables(breakableManager);
+                                    C2Level4.SpawnEnemies(enemyManager);
+                                    C2Level4.SpawnSpikes(spikeManager);
+                                    C2Level4.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+                                case Chapter2.Level4:
+                                    collisionManager.Update(gameTime, C2Level4.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+                                    break;
+
+                                case Chapter2.PreLevel5:
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level5.LevelTime;
+                                    C2Level5.PositionPlayer(player);
+                                    C2Level5.SpawnDoorAndKeys(keyDoor);
+                                    C2Level5.SpawnBreakables(breakableManager);
+                                    C2Level5.SpawnEnemies(enemyManager);
+                                    C2Level5.SpawnSpikes(spikeManager);
+                                    C2Level5.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+                                case Chapter2.Level5:
+                                    collisionManager.Update(gameTime, C2Level5.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+                                    break;
+
+                                case Chapter2.PreLevel6:
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level6.LevelTime;
+                                    C2Level6.PositionPlayer(player);
+                                    C2Level6.SpawnDoorAndKeys(keyDoor);
+                                    C2Level6.SpawnBreakables(breakableManager);
+                                    C2Level6.SpawnEnemies(enemyManager);
+                                    C2Level6.SpawnSpikes(spikeManager);
+                                    C2Level6.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+
+                                case Chapter2.Level6:
+                                    collisionManager.Update(gameTime, C2Level6.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+                                    break;
+
+                                case Chapter2.PreLevel7:
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level7.LevelTime;
+                                    C2Level7.PositionPlayer(player);
+                                    C2Level7.SpawnDoorAndKeys(keyDoor);
+                                    C2Level7.SpawnBreakables(breakableManager);
+                                    C2Level7.SpawnEnemies(enemyManager);
+                                    C2Level7.SpawnSpikes(spikeManager);
+                                    C2Level7.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+
+                                case Chapter2.Level7:
+                                    collisionManager.Update(gameTime, C2Level7.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+                                    break;
+
+                                case Chapter2.PreLevel8:
+                                    // Reset classes from previous levels
+                                    enemyManager.Reset();
+                                    breakableManager.Reset();
+                                    keyDoor.Reset();
+                                    spikeManager.Reset();
+                                    heartManager.Reset();
+
+                                    player.LevelTimeLeft = C2Level8.LevelTime;
+                                    C2Level8.PositionPlayer(player);
+                                    C2Level8.SpawnDoorAndKeys(keyDoor);
+                                    C2Level8.SpawnBreakables(breakableManager);
+                                    C2Level8.SpawnEnemies(enemyManager);
+                                    C2Level8.SpawnSpikes(spikeManager);
+                                    C2Level8.SpawnHearts(heartManager);
+                                    // Move to next level
+                                    C2Level++;
+                                    break;
+
+                                case Chapter2.Level8:
+                                    collisionManager.Update(gameTime, C2Level8.tileManager, keyDoor, spikeManager);
+
+                                    // Update the player
+                                    player.Update(gameTime);
+
+                                    enemyManager.Update(gameTime);
+                                    breakableManager.Update(gameTime);
+                                    break;
+                            }
+
+                            break;
                     }
 
                     // Pause the game when ESC is pressed
@@ -561,6 +826,7 @@ namespace Jumper
                         // Move to gamestate Playing
                         gameState = GameState.Playing;
                     }
+
                     break;
 
                 case GameState.Win:
@@ -674,182 +940,399 @@ namespace Jumper
         // Function for drawing the Gamestate "Playing". Seperated so it can be reused for drawing gamestate "Paused"
         private void DrawGameStatePlaying(SpriteBatch spriteBatch)
         {
-            // Create a string of the level name
-            string levelName = "Level: " + (((int)C1Level/2)+1);
+            // Name of the level
+            string levelName;
 
-            switch (C1Level)
+            // Selected chapter
+            switch (Chapter)
             {
-                case Chapter1.Level1:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
+                // CHAPTER 1
+                case Chapters.Chapter1:
+                    // Create a string of the level name
+                    levelName = "Level: " + (((int) C1Level / 2) + 1);
 
-                    // Draw all tiles for level
-                    C1Level1.tileManager.Draw(spriteBatch);
+                    switch (C1Level)
+                    {
+                        case Chapter1.Level1:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
 
-                    // Draw tutorial text
-                    C1Level1.TutorialText.Draw(spriteBatch);
+                            // Draw all tiles for level
+                            C1Level1.tileManager.Draw(spriteBatch);
 
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                            // Draw tutorial text
+                            C1Level1.TutorialText.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter1.Level2:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1Level2.tileManager.Draw(spriteBatch);
+
+                            // Draw tutorial text
+                            C1Level2.TutorialText.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter1.Level3:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1Level3.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter1.Level4:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1Level4.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter1.Level5:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1Level5.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter1.Level6:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1Level6.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter1.Level7:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1Level7.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter1.Level8:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1Level8.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+
+                        case Chapter1.C1LevelTest:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C1LevelTest.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                    }
+
                     break;
-                case Chapter1.Level2:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
 
-                    // Draw all tiles for level
-                    C1Level2.tileManager.Draw(spriteBatch);
+                // CHAPTER 2
+                case Chapters.Chapter2:
+                    // Create a string of the level name
+                    levelName = "Level: " + (((int) C2Level / 2) + 1);
 
-                    // Draw tutorial text
-                    C1Level2.TutorialText.Draw(spriteBatch);
+                    switch (C2Level)
+                    {
+                        case Chapter2.Level1:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
 
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
+                            // Draw all tiles for level
+                            C2Level1.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter2.Level2:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C2Level2.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter2.Level3:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C2Level3.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter2.Level4:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C2Level4.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter2.Level5:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C2Level5.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter2.Level6:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C2Level6.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter2.Level7:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C2Level7.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                        case Chapter2.Level8:
+                            // Draw managers, player etc
+                            keyDoor.Draw(spriteBatch);
+                            player.Draw(spriteBatch);
+                            enemyManager.Draw(spriteBatch);
+                            breakableManager.Draw(spriteBatch);
+                            spikeManager.Draw(spriteBatch);
+                            heartManager.Draw(spriteBatch);
+
+                            // Draw all tiles for level
+                            C2Level8.tileManager.Draw(spriteBatch);
+
+                            // Draw lives and time left
+                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
+                                Color.White);
+                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft),
+                                new Vector2(630, 10), Color.White);
+                            // Draw the level name centered
+                            spriteBatch.DrawString(kongtextFont10, levelName,
+                                CenterText(new Vector2(400, 10), levelName), Color.White);
+                            break;
+                    }
+
                     break;
-                case Chapter1.Level3:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
 
-                    // Draw all tiles for level
-                    C1Level3.tileManager.Draw(spriteBatch);
-
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
-                    break;
-                case Chapter1.Level4:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
-
-                    // Draw all tiles for level
-                    C1Level4.tileManager.Draw(spriteBatch);
-
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
-                    break;
-                case Chapter1.Level5:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
-
-                    // Draw all tiles for level
-                    C1Level5.tileManager.Draw(spriteBatch);
-
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
-                    break;
-                case Chapter1.Level6:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
-
-                    // Draw all tiles for level
-                    C1Level6.tileManager.Draw(spriteBatch);
-
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
-                    break;
-                case Chapter1.Level7:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
-
-                    // Draw all tiles for level
-                    C1Level7.tileManager.Draw(spriteBatch);
-
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
-                    break;
-                case Chapter1.C1Level8:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
-
-                    // Draw all tiles for level
-                    C1Level8.tileManager.Draw(spriteBatch);
-
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
-                    break;
-
-                case Chapter1.C1LevelTest:
-                    // Draw managers, player etc
-                    keyDoor.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                    enemyManager.Draw(spriteBatch);
-                    breakableManager.Draw(spriteBatch);
-                    spikeManager.Draw(spriteBatch);
-                    heartManager.Draw(spriteBatch);
-
-                    // Draw all tiles for level
-                    C1LevelTest.tileManager.Draw(spriteBatch);
-
-                    // Draw lives and time left
-                    spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10), Color.White);
-                    spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int)player.LevelTimeLeft), new Vector2(630, 10), Color.White);
-                    // Draw the level name centered
-                    spriteBatch.DrawString(kongtextFont10, levelName, CenterText(new Vector2(400, 10), levelName), Color.White);
-                    break;
             }
-
         }
     }
 }

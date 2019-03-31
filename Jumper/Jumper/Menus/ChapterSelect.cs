@@ -31,6 +31,10 @@ namespace Jumper
         // Update
         public static void Update(GameTime gameTime)
         {
+            if (InputManager.IsTapped(Keys.Escape))
+            {
+                Game1.gameState = Game1.GameState.MainMenu;
+            }
             if (InputManager.IsTapped(Keys.Left))
             {
                 Previous();
@@ -53,7 +57,7 @@ namespace Jumper
                     case 1:
                         Game1.gameState = Game1.GameState.Playing;
                         Game1.Chapter = Game1.Chapters.Chapter2;
-                        Game1.C2Level = Game1.Chapter1.PreLevel1;
+                        Game1.C2Level = Game1.Chapter2.PreLevel1;
                         break;
                 }
             }

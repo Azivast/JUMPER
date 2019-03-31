@@ -123,6 +123,7 @@ namespace Jumper
             {
                 // Move to next level
                 Game1.C1Level++;
+                Game1.C2Level++;
 
                 // Play sound
                 SoundManager.NextLevel.Play();

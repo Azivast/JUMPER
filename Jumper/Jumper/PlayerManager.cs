@@ -56,6 +56,7 @@ namespace Jumper
             {
                 Lives--;
                 Game1.C1Level--;
+                Game1.C2Level--;
             }
             else
             {

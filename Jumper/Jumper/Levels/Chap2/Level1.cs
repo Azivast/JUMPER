@@ -12,7 +12,7 @@ namespace Jumper
     static class C2Level1
     {
         // Position of player
-        public static Vector2 PlayerPosition = new Vector2(25, 190);
+        public static Vector2 PlayerPosition = new Vector2(25, 10);
         public static float LevelTime = 60;
 
         public static TileManager tileManager;
@@ -24,10 +24,22 @@ namespace Jumper
             tileManager = new TileManager();
 
             // Load textures for level
-            Texture2D block = Content.Load<Texture2D>(@"Sprites/Block");
+            Texture2D block = Content.Load<Texture2D>(@"Sprites/Block2");
 
-            tileManager.AddTile(block, new Vector2(0, 240), new Rectangle(0, 0, 25, 25));
-
+            tileManager.AddTile(block, new Vector2(9, 64), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(34, 64), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(63, 140), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(114, 219), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(190, 291), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(273, 346), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(355, 373), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(434, 393), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(515, 403), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(595, 412), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(671, 413), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(746, 413), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(771, 413), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(796, 413), new Rectangle(0, 0, 25, 25));
 
         }
 
@@ -69,14 +81,6 @@ namespace Jumper
         public static void SpawnHearts(HeartManager heartManager)
         {
             //heartManager.SpawnHeart(new Vector2(x, y));
-        }
-
-        // Setup the tutorial text
-        public static void SetupText(SpriteFont font)
-        {
-            TutorialText = new TypeText("Welcome to JUMPER! Your mission is to reach the elevator on\neach level. However, in order to use it you will need to collect\n" +
-            "all keycards. Avoid contact with 'glitches' to stay alive.\n" +
-            "But be quick, time is limited.", 2, new Vector2(50, 40),  font);
         }
     }
 }
