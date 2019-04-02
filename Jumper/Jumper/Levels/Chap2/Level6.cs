@@ -12,7 +12,7 @@ namespace Jumper
     static class C2Level6
     {
         // Position of player
-        public static Vector2 PlayerPosition = new Vector2(25, 190);
+        public static Vector2 PlayerPosition = new Vector2(593, 270);
         public static float LevelTime = 60;
 
         public static TileManager tileManager;
@@ -26,63 +26,29 @@ namespace Jumper
             // Load textures for level
             Texture2D block = Content.Load<Texture2D>(@"Sprites/Block2");
 
-            tileManager.AddTile(block, new Vector2(587, 63), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(562, 63), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(496, 102), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(373, 102), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(246, 102), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(184, 150), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(309, 150), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(438, 150), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(184, 50), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(309, 50), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(438, 50), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(184, 312), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(184, 424), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(308, 424), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(438, 424), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(309, 312), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(438, 312), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(126, 371), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(248, 371), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(374, 371), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(497, 371), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(43, 371), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 278), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 253), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 228), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 203), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 178), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 153), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 128), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 103), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(114, 103), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, 78), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(562, 371), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(587, 371), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 63), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 38), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 13), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 88), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 113), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 138), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 163), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 188), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 213), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 238), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 263), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 288), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 313), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 338), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 363), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 388), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, -12), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 413), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 438), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(612, 463), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(89, -2), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(581, 21), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(566, -4), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(691, 398), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(641, 348), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(591, 298), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(541, 248), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(491, 198), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(441, 148), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(391, 98), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(341, 48), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(291, -2), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(321, 369), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(411, 291), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(732, 113), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(588, 51), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(642, 192), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(180, 419), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(78, 240), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(201, 176), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(152, 268), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(261, 247), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(319, 193), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(264, 151), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(300, 117), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(321, 77), new Rectangle(0, 0, 25, 25));
         }
 
         // Spawn all breakables for level
@@ -113,7 +79,7 @@ namespace Jumper
         public static void SpawnDoorAndKeys(KeyDoor keyDoor)
         {
             // Position door
-            keyDoor.DoorPosition = new Vector2(775, 204);
+            keyDoor.DoorPosition = new Vector2(180, 383);
 
             // Spawn keys
             keyDoor.SpawnKey(new Vector2(450, 215));

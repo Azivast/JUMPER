@@ -39,7 +39,6 @@ namespace Jumper
             tileManager.AddTile(block, new Vector2(671, 413), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(746, 413), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(771, 413), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(796, 413), new Rectangle(0, 0, 25, 25));
 
         }
 
@@ -58,7 +57,7 @@ namespace Jumper
         // Spawn all enemies for level
         public static void SpawnEnemies(EnemyManager enemyManager)
         {
-            enemyManager.SpawnEnemy(new Vector2(300, 215), new Vector2(575, 215), 4);
+            enemyManager.SpawnEnemy(new Vector2(300, 388), new Vector2(770, 388), 4);
         }
 
         // Position player
@@ -71,13 +70,13 @@ namespace Jumper
         public static void SpawnDoorAndKeys(KeyDoor keyDoor)
         {
             // Position door
-            keyDoor.DoorPosition = new Vector2(775, 204);
+            keyDoor.DoorPosition = new Vector2(771, 377);
 
             // Spawn keys
             keyDoor.SpawnKey(new Vector2(450, 215));
         }
 
-        // Spawn hearts for level
+        // Spawn hearts for level0
         public static void SpawnHearts(HeartManager heartManager)
         {
             //heartManager.SpawnHeart(new Vector2(x, y));

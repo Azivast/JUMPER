@@ -93,7 +93,7 @@ namespace Jumper
                 }
                 else
                 {
-                    spriteBatch.Draw(Chapters[i], new Rectangle(10 + 150 * i, 10, Chapters[i].Width, Chapters[i].Height), Color.DarkGray);
+                    spriteBatch.Draw(Chapters[i], new Rectangle(10 + 150 * i, 10, Chapters[i].Width, Chapters[i].Height), new Color(100, 100 ,100));
                 }
 
                 spriteBatch.DrawString(font, "Chapter " + (i+1).ToString(), new Vector2(0 + 150 * i, 90), new Color(36, 36, 36));

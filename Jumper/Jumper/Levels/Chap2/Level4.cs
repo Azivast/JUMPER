@@ -12,7 +12,7 @@ namespace Jumper
     static class C2Level4
     {
         // Position of player
-        public static Vector2 PlayerPosition = new Vector2(25, 190);
+        public static Vector2 PlayerPosition = new Vector2(365, 403);
         public static float LevelTime = 60;
 
         public static TileManager tileManager;
@@ -85,7 +85,7 @@ namespace Jumper
         public static void SpawnDoorAndKeys(KeyDoor keyDoor)
         {
             // Position door
-            keyDoor.DoorPosition = new Vector2(775, 204);
+            keyDoor.DoorPosition = new Vector2(365, 403);
 
             // Spawn keys
             keyDoor.SpawnKey(new Vector2(450, 215));
