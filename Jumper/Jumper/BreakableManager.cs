@@ -17,6 +17,12 @@ namespace Jumper
 
         public List<Breakable> Breakables = new List<Breakable>();
 
+        public Texture2D Texture
+        {
+            get { return texture; }
+            set { texture = value; }
+        }
+
         // Constructor
         public BreakableManager(Texture2D texture, Rectangle initialFrame, int frameCount)
         {
