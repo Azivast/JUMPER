@@ -138,9 +138,10 @@ namespace Jumper
             {
                 Sprite.Velocity.Y = 0;
             }
-            else if (Sprite.Position.Y >= 480 - Sprite.FrameHeight && Sprite.Velocity.Y > 0)
+            //else if (Sprite.Position.Y >= 480 - Sprite.FrameHeight && Sprite.Velocity.Y > 0)
+            else if (Sprite.Position.Y >= 480)
             {
-                Sprite.Velocity.Y = 0;
+                KillPlayer();
             }
             Sprite.Update(gameTime);
 
