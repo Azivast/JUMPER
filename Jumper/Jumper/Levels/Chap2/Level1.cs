@@ -57,7 +57,7 @@ namespace Jumper
         // Spawn all enemies for level
         public static void SpawnEnemies(EnemyManager enemyManager)
         {
-            enemyManager.SpawnEnemy(new Vector2(300, 388), new Vector2(770, 388), 4);
+            enemyManager.SpawnEnemy(new Vector2(540, 388), new Vector2(770, 388), 4);
         }
 
         // Position player
@@ -73,7 +73,9 @@ namespace Jumper
             keyDoor.DoorPosition = new Vector2(771, 377);
 
             // Spawn keys
-            keyDoor.SpawnKey(new Vector2(450, 215));
+            keyDoor.SpawnKey(new Vector2(70, 115));
+            keyDoor.SpawnKey(new Vector2(280, 321));
+            keyDoor.SpawnKey(new Vector2(603, 387));
         }
 
         // Spawn hearts for level0

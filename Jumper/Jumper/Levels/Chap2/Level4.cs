@@ -29,10 +29,10 @@ namespace Jumper
             tileManager.AddTile(block, new Vector2(340, 439), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(365, 439), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(390, 439), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(720, 287), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(745, 287), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(770, 287), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(795, 287), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(720, 286), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(745, 286), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(770, 286), new Rectangle(0, 0, 25, 25));
+            tileManager.AddTile(block, new Vector2(795, 286), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(658, 286), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(633, 286), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(608, 286), new Rectangle(0, 0, 25, 25));
@@ -72,7 +72,8 @@ namespace Jumper
         // Spawn all enemies for level
         public static void SpawnEnemies(EnemyManager enemyManager)
         {
-            enemyManager.SpawnEnemy(new Vector2(300, 215), new Vector2(575, 215), 4);
+            enemyManager.SpawnEnemy(new Vector2(608, 261), new Vector2(770, 261), 4);
+            enemyManager.SpawnEnemy(new Vector2(323, 148), new Vector2(410, 148), 2);
         }
 
         // Position player
@@ -88,7 +89,9 @@ namespace Jumper
             keyDoor.DoorPosition = new Vector2(365, 403);
 
             // Spawn keys
-            keyDoor.SpawnKey(new Vector2(450, 215));
+            keyDoor.SpawnKey(new Vector2(699, 80));
+            keyDoor.SpawnKey(new Vector2(699, 384));
+            keyDoor.SpawnKey(new Vector2(410, 148));
         }
 
         // Spawn hearts for level

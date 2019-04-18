@@ -98,7 +98,16 @@ namespace Jumper
         // Spawn all enemies for level
         public static void SpawnEnemies(EnemyManager enemyManager)
         {
-            enemyManager.SpawnEnemy(new Vector2(300, 215), new Vector2(575, 215), 4);
+            enemyManager.SpawnEnemy(new Vector2(184, 25), new Vector2(438, 25), 2);
+            enemyManager.SpawnEnemy(new Vector2(114, 77), new Vector2(496, 77), 1);
+            enemyManager.SpawnEnemy(new Vector2(184, 125), new Vector2(438, 125), 4);
+
+            enemyManager.SpawnEnemy(new Vector2(114, 215), new Vector2(587, 215), 8);
+            enemyManager.SpawnEnemy(new Vector2(114, 245), new Vector2(587, 245), 9);
+
+            enemyManager.SpawnEnemy(new Vector2(184, 287), new Vector2(438, 287), 1);
+            enemyManager.SpawnEnemy(new Vector2(126, 346), new Vector2(497, 346), 2);
+            enemyManager.SpawnEnemy(new Vector2(184, 399), new Vector2(438, 399), 3);
         }
 
         // Position player
@@ -114,7 +123,9 @@ namespace Jumper
             keyDoor.DoorPosition = new Vector2(587, 335);
 
             // Spawn keys
-            keyDoor.SpawnKey(new Vector2(450, 215));
+            keyDoor.SpawnKey(new Vector2(50, 178));
+            keyDoor.SpawnKey(new Vector2(414, 102));
+            keyDoor.SpawnKey(new Vector2(184, 287));
         }
 
         // Spawn hearts for level

@@ -13,7 +13,7 @@ namespace Jumper
     {
         // Position of player
         public static Vector2 PlayerPosition = new Vector2(593, 270);
-        public static float LevelTime = 60;
+        public static float LevelTime = 20;
 
         public static TileManager tileManager;
         public static TypeText TutorialText;
@@ -66,7 +66,7 @@ namespace Jumper
         // Spawn all enemies for level
         public static void SpawnEnemies(EnemyManager enemyManager)
         {
-            enemyManager.SpawnEnemy(new Vector2(300, 215), new Vector2(575, 215), 4);
+            enemyManager.SpawnEnemy(new Vector2(78, 215), new Vector2(250, 215), 3);
         }
 
         // Position player
@@ -82,7 +82,10 @@ namespace Jumper
             keyDoor.DoorPosition = new Vector2(180, 383);
 
             // Spawn keys
-            keyDoor.SpawnKey(new Vector2(450, 215));
+            keyDoor.SpawnKey(new Vector2(702, 113));
+            keyDoor.SpawnKey(new Vector2(315, 170));
+            keyDoor.SpawnKey(new Vector2(170, 110));
+            keyDoor.SpawnKey(new Vector2(700, 373));
         }
 
         // Spawn hearts for level
