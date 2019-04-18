@@ -92,6 +92,7 @@
     <Compile Include="Levels\Chap2\Level1.cs" />
     <Compile Include="Menus\Credits.cs" />
     <Compile Include="Menus\ChapterSelect.cs" />
+    <Compile Include="Menus\Win.cs" />
     <Compile Include="Menus\Paused.cs" />
     <Compile Include="Menus\GameOver.cs" />
     <Compile Include="Menus\Options.cs" />
