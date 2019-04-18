@@ -50,16 +50,16 @@ namespace Jumper
             tileManager.AddTile(block, new Vector2(185, 359), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(149, 321), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(103, 284), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(56, 246), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(153, 215), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(429, 358), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(56, 246), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(153, 215), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(429, 358), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(479, 341), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(540, 382), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(587, 342), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(371, 377), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(587, 342), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(371, 377), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(248, 328), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(652, 319), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(703, 277), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(703, 277), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(752, 259), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(777, 259), new Rectangle(0, 0, 25, 25));
 
@@ -68,7 +68,12 @@ namespace Jumper
         // Spawn all breakables for level
         public static void SpawnBreakables(BreakableManager breakableManager)
         {
-            //breakableManager.SpawnBreakable(new Vector2(x, y));
+            breakableManager.SpawnBreakable(new Vector2(56, 246));
+            breakableManager.SpawnBreakable(new Vector2(153, 215));
+            breakableManager.SpawnBreakable(new Vector2(429, 358));
+            breakableManager.SpawnBreakable(new Vector2(587, 342));
+            breakableManager.SpawnBreakable(new Vector2(371, 377));
+            breakableManager.SpawnBreakable(new Vector2(703, 277));
         }
 
         // Spawn all spikes for level

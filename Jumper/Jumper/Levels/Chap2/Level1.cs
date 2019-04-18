@@ -18,6 +18,9 @@ namespace Jumper
         public static TileManager tileManager;
         public static TypeText TutorialText;
 
+        // Texture of breakable used for all levels in chapter
+        private static Texture2D breakable;
+
         // Load all tiles for level
         public static void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -25,6 +28,7 @@ namespace Jumper
 
             // Load textures for level
             Texture2D block = Content.Load<Texture2D>(@"Sprites/Block2");
+            breakable = Content.Load<Texture2D>(@"Sprites/Breakable2");
 
             tileManager.AddTile(block, new Vector2(9, 64), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(34, 64), new Rectangle(0, 0, 25, 25));
@@ -45,6 +49,9 @@ namespace Jumper
         // Spawn all breakables for level
         public static void SpawnBreakables(BreakableManager breakableManager)
         {
+            // Change texture to one used for chapter
+            breakableManager.Texture = breakable;
+
             //breakableManager.SpawnBreakable(new Vector2(x, y));
         }
 

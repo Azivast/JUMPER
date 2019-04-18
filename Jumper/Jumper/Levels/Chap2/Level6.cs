@@ -29,21 +29,21 @@ namespace Jumper
             tileManager.AddTile(block, new Vector2(691, 398), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(641, 348), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(591, 298), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(541, 248), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(541, 248), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(491, 198), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(441, 148), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(441, 148), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(391, 98), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(341, 48), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(291, -2), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(321, 369), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(411, 291), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(732, 113), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(732, 113), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(588, 51), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(642, 192), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(180, 419), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(78, 240), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(201, 176), new Rectangle(0, 0, 25, 25));
-            tileManager.AddTile(block, new Vector2(152, 268), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(201, 176), new Rectangle(0, 0, 25, 25));
+            //tileManager.AddTile(block, new Vector2(152, 268), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(261, 247), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(319, 193), new Rectangle(0, 0, 25, 25));
             tileManager.AddTile(block, new Vector2(264, 151), new Rectangle(0, 0, 25, 25));
@@ -54,7 +54,11 @@ namespace Jumper
         // Spawn all breakables for level
         public static void SpawnBreakables(BreakableManager breakableManager)
         {
-            //breakableManager.SpawnBreakable(new Vector2(x, y));
+            breakableManager.SpawnBreakable(new Vector2(541, 248));
+            breakableManager.SpawnBreakable(new Vector2(441, 148));
+            breakableManager.SpawnBreakable(new Vector2(732, 113));
+            breakableManager.SpawnBreakable(new Vector2(201, 176));
+            breakableManager.SpawnBreakable(new Vector2(152, 268));
         }
 
         // Spawn all spikes for level
