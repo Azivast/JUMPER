@@ -11,6 +11,7 @@ namespace Jumper
     static class SoundManager
     {
         public static SoundEffect Select;
+        public static SoundEffect Unavailable;
         public static SoundEffect Hurt;
         public static SoundEffect PickUp;
         public static SoundEffect NextLevel;
@@ -24,6 +25,7 @@ namespace Jumper
         {
             // Load sound effects
             Select = Content.Load<SoundEffect>(@"Sounds/Select");
+            Unavailable = Content.Load<SoundEffect>(@"Sounds/text");
             Hurt = Content.Load<SoundEffect>(@"Sounds/Hurt");
             PickUp = Content.Load<SoundEffect>(@"Sounds/Pick Up");
             NextLevel = Content.Load<SoundEffect>(@"Sounds/NextLevel");
