@@ -57,6 +57,11 @@ namespace Jumper
         // Which level state to start in
         public static Chapter2 C2Level = Chapter2.PreLevel1;
 
+        // Which chapters are unlocked. Chapter 1 is allways accessible
+        public static bool Chapter2Unlocked = true;
+        public static bool Chapter3Unlocked = false;
+
+
         // The different game states
         public enum GameState
         {
@@ -94,12 +99,7 @@ namespace Jumper
             Level7,
             PreLevel8,
             Level8,
-            PreLevel9,
-            Level9,
-            PreLevel10,
-            Level10,
-            PreC1LevelTest,
-            C1LevelTest
+            Win,
         };
 
         public enum Chapter2
@@ -120,10 +120,7 @@ namespace Jumper
             Level7,
             PreLevel8,
             Level8,
-            PreLevel9,
-            Level9,
-            PreLevel10,
-            Level10,
+            Win,
         };
 
         public Game1()
@@ -222,10 +219,11 @@ namespace Jumper
 
             // Load Menus
             MainMenu.LoadContent(kongtextFont10);
-            ChapterSelect.LoadContent(Content, kongtextFont10);
+            ChapterSelect.LoadContent(Content, kongtextFont10, kongtextFont18);
             Credits.LoadContent(kongtextFont10, kongtextFont18);
             Options.LoadContent(kongtextFont10, kongtextFont18);
             GameOver.LoadContent(kongtextFont10);
+            Win.LoadContent(kongtextFont10, kongtextFont18);
             Paused.LoadContent(kongtextFont10, kongtextFont18, player);
         }
 
@@ -253,17 +251,17 @@ namespace Jumper
             //    gameState = GameState.MainMenu;
 
             //!!DEBUG CHANGE BEFORE RELEASE!!
-            //// Warp keys
-            //if (InputManager.IsTapped(Keys.NumPad2))
-            //{
-            //    C1Level++;
-            //    C2Level++;
-            //}
-            //else if (InputManager.IsTapped(Keys.NumPad1))
-            //{
-            //    C1Level -= 3;
-            //    C2Level -= 3;
-            //}
+            // Warp keys
+            if (InputManager.IsTapped(Keys.NumPad2))
+            {
+                C1Level++;
+                C2Level++;
+            }
+            else if (InputManager.IsTapped(Keys.NumPad1))
+            {
+                C1Level -= 3;
+                C2Level -= 3;
+            }
 
 
             // Gamestate specific code
@@ -530,32 +528,9 @@ namespace Jumper
                                     breakableManager.Update(gameTime);
                                     break;
 
-                                case Chapter1.PreC1LevelTest:
-                                    // Reset classes from previous levels
-                                    enemyManager.Reset();
-                                    breakableManager.Reset();
-                                    keyDoor.Reset();
-                                    spikeManager.Reset();
-                                    heartManager.Reset();
-
-                                    player.LevelTimeLeft = C1LevelTest.LevelTime;
-                                    C1LevelTest.PositionPlayer(player);
-                                    C1LevelTest.SpawnDoorAndKeys(keyDoor);
-                                    C1LevelTest.SpawnBreakables(breakableManager);
-                                    C1LevelTest.SpawnEnemies(enemyManager);
-                                    C1LevelTest.SpawnSpikes(spikeManager);
-                                    C1LevelTest.SpawnHearts(heartManager);
-                                    // Move to next level
-                                    C1Level++;
-                                    break;
-                                case Chapter1.C1LevelTest:
-                                    collisionManager.Update(gameTime, C1LevelTest.tileManager, keyDoor, spikeManager);
-
-                                    // Update the player
-                                    player.Update(gameTime);
-
-                                    enemyManager.Update(gameTime);
-                                    breakableManager.Update(gameTime);
+                                case Chapter1.Win:
+                                    // Move to win screen
+                                    gameState = GameState.Win;
                                     break;
                             }
 
@@ -794,6 +769,10 @@ namespace Jumper
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
                                     break;
+                                case Chapter2.Win:
+                                    // Move to win screen
+                                    gameState = GameState.Win;
+                                    break;
                             }
 
                             break;
@@ -830,6 +809,7 @@ namespace Jumper
                     break;
 
                 case GameState.Win:
+                    Win.Update(gameTime);
                     break;
 
                 case GameState.GameOver:
@@ -902,6 +882,7 @@ namespace Jumper
 
                 case GameState.Win:
                     spriteBatch.Draw(bgWin, Vector2.Zero, Color.White);
+                    Win.Draw(spriteBatch);
                     break;
 
                 case GameState.GameOver:
@@ -1117,28 +1098,6 @@ namespace Jumper
 
                             // Draw all tiles for level
                             C1Level8.tileManager.Draw(spriteBatch);
-
-                            // Draw lives and time left
-                            spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
-                                Color.White);
-                            spriteBatch.DrawString(kongtextFont10, "Time left: " + ((int) player.LevelTimeLeft),
-                                new Vector2(630, 10), Color.White);
-                            // Draw the level name centered
-                            spriteBatch.DrawString(kongtextFont10, levelName,
-                                CenterText(new Vector2(400, 10), levelName), Color.White);
-                            break;
-
-                        case Chapter1.C1LevelTest:
-                            // Draw managers, player etc
-                            keyDoor.Draw(spriteBatch);
-                            player.Draw(spriteBatch);
-                            enemyManager.Draw(spriteBatch);
-                            breakableManager.Draw(spriteBatch);
-                            spikeManager.Draw(spriteBatch);
-                            heartManager.Draw(spriteBatch);
-
-                            // Draw all tiles for level
-                            C1LevelTest.tileManager.Draw(spriteBatch);
 
                             // Draw lives and time left
                             spriteBatch.DrawString(kongtextFont10, "Lives: " + player.Lives, new Vector2(25, 10),
