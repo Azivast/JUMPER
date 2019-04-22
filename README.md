@@ -1,6 +1,7 @@
-![scr](https://i.imgur.com/pVDD1od.png)
+
 # ./JUMPER/
 A generic platformer made using C# and XNA 4.0. Originally made as part of a school project (see legacy branch).
+![scr](https://i.imgur.com/pVDD1od.png)
 [![Watch the trailer](https://img.youtube.com/vi/XkVJqmlvP_A/hqdefault.jpg)](https://youtu.be/XkVJqmlvP_A)
 
 ## Getting Started
