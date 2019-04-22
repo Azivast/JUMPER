@@ -27,8 +27,8 @@ namespace Jumper
 
         public int CollisionRadius = 0;
         // Padding for collision
-        public int BoundingXPadding = -3;
-        public int BoundingYPadding = -3;
+        public int BoundingXPadding = -1;
+        public int BoundingYPadding = -1;
 
         public Vector2 Position = Vector2.Zero;
         public Vector2 Velocity = Vector2.Zero;

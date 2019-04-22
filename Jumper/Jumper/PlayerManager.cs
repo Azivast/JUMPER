@@ -20,12 +20,6 @@ namespace Jumper
         private int startLives = 3;
         public int Lives;
         public float LevelTimeLeft;
-        public float LevelTime;
-
-        public bool CollidesTop;
-        public bool CollidesBottom;
-        public bool CollidesRight;
-        public bool CollidesLeft;
 
         // Defines get/sets
         public Vector2 Position
@@ -34,7 +28,17 @@ namespace Jumper
             set { Sprite.Position = value; }
         }
 
-        public bool Airborne => !CollidesBottom;
+        // Vector2of where the player wants to be
+        public Vector2 WantedPos =>
+            new Vector2(Sprite.Rectangle.X + (int)Sprite.Velocity.X, Sprite.Rectangle.Y + (int)Sprite.Velocity.Y);
+        // Rectangle of where the player wants to be
+        public Rectangle WantedPosRect =>
+            new Rectangle(Sprite.Rectangle.X + (int)Sprite.Velocity.X, Sprite.Rectangle.Y + (int)Sprite.Velocity.Y, Rectangle.Width, Rectangle.Height);
+
+        // Vector2 of where the player will be after next move
+        public Vector2 NextPos;
+
+        public bool Airborne = true;
 
         public Rectangle Rectangle => Sprite.Rectangle;
 
@@ -73,22 +77,12 @@ namespace Jumper
         // Update player
         public void Update(GameTime gameTime)
         {
-            // Gravity
-            if (Airborne && Sprite.Velocity.Y < 4)
+            // Update time
+            LevelTimeLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            // Kill player if time runs out
+            if (LevelTimeLeft < 0)
             {
-                Sprite.Velocity.Y += gravity;
-            }
-            if (Airborne == false)
-            {
-                Sprite.Velocity.Y = 0;
-            }
-
-            if (CollidesTop)
-            {
-                Sprite.Velocity.Y = 0;
-                // Move player down one pixel to avoid getting stuck as long as not standing on ground
-                if (!CollidesBottom)
-                    Sprite.Position.Y++;
+                KillPlayer();
             }
 
             // Reset to idle frame if movement keys are released 
@@ -101,29 +95,55 @@ namespace Jumper
                 Sprite.Frame = 0;
             }
 
-            // Animates the player Right and creates a boundry to confine the player within the Right side of the window
-            if (InputManager.KBState.IsKeyDown(Keys.Right) && !CollidesRight)
+
+            CheckKeyboardAndUpdateVelocity(gameTime);
+            Gravity();
+            // Run MovePlayerIfNoCollision() from game1.cs after collisionsmanager has been updated
+        }
+
+        private void Gravity()
+        {
+            if (Sprite.Velocity.Y < 4)
+            {
+                Sprite.Velocity.Y += gravity;
+
+                // Make player stay still in air shorter
+                if (Sprite.Velocity.Y < 1 && Sprite.Velocity.Y > 0)
+                {
+                    Sprite.Velocity.Y += 0.5f;
+                }
+            }
+        }
+
+        private void CheckKeyboardAndUpdateVelocity(GameTime gameTime)
+        {
+            // Reset velocity
+            Sprite.Velocity.X = 0;
+
+            // Right
+            if (InputManager.KBState.IsKeyDown(Keys.Right))
             {
                 AnimateRight(gameTime);
-                    Sprite.Velocity.X = spriteSpeed;
+                Sprite.Velocity.X += spriteSpeed;
             }
 
-            // Animates the player Left and creates a boundry to confine the player within the Left side of the window
-            else if (InputManager.KBState.IsKeyDown(Keys.Left) && !CollidesLeft)
+            // Left
+            else if (InputManager.KBState.IsKeyDown(Keys.Left))
             {
                 AnimateLeft(gameTime);
-                    Sprite.Velocity.X = spriteSpeed*-1;
+                Sprite.Velocity.X -= spriteSpeed;
             }
-            else
-            {
-                Sprite.Velocity.X = 0;
-            }
-            // Check if player should jump
-            if (InputManager.KBState.IsKeyDown(Keys.Up) && Airborne == false && !CollidesTop)
+
+            // Jump
+            if (InputManager.KBState.IsKeyDown(Keys.Up) && !Airborne)
             {
                 // Increase player's Velocity upwards
-                Sprite.Velocity.Y -= 4.1f;
+                Sprite.Velocity.Y -= 4.9f;
+
+                Airborne = true;
             }
+
+
 
             // Stop player from moving outside window
             if (Sprite.Position.X <= 0 && Sprite.Velocity.X < 0)
@@ -138,22 +158,18 @@ namespace Jumper
             {
                 Sprite.Velocity.Y = 0;
             }
-            //else if (Sprite.Position.Y >= 480 - Sprite.FrameHeight && Sprite.Velocity.Y > 0)
+            // Kill player is falling below screen
             else if (Sprite.Position.Y >= 480)
-            {
-                KillPlayer();
-            }
-            Sprite.Update(gameTime);
-
-            // Update time
-            LevelTimeLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            // Kill player if time runs out
-            if (LevelTimeLeft < LevelTime)
             {
                 KillPlayer();
             }
         }
 
+        public void MovePlayerIfNoCollision()
+        {
+            // Move player
+            Sprite.Position = NextPos;
+        }
 
         public void AnimateRight(GameTime gameTime)
         {

@@ -13,7 +13,7 @@ namespace Jumper
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         // Version Number of Game
-        public static string VersionNumber = "pre-2.0 Indev";
+        public static string VersionNumber = "2.0 DEMO";
 
         public static GraphicsDeviceManager graphics;
 
@@ -58,7 +58,7 @@ namespace Jumper
         public static Chapter2 C2Level = Chapter2.PreLevel1;
 
         // Which chapters are unlocked. Chapter 1 is allways accessible
-        public static bool Chapter2Unlocked = true;
+        public static bool Chapter2Unlocked = false;
         public static bool Chapter3Unlocked = false;
 
 
@@ -188,9 +188,6 @@ namespace Jumper
             C1Level6.LoadContent(Content, GraphicsDevice);
             C1Level7.LoadContent(Content, GraphicsDevice);
             C1Level8.LoadContent(Content, GraphicsDevice);
-            //Level9.LoadContent(Content, GraphicsDevice);
-            //Level10.LoadContent(Content, GraphicsDevice);
-            C1LevelTest.LoadContent(Content, GraphicsDevice);
 
             // Load content for each level in chapter 2
             C2Level1.LoadContent(Content, GraphicsDevice);
@@ -201,8 +198,6 @@ namespace Jumper
             C2Level6.LoadContent(Content, GraphicsDevice);
             C2Level7.LoadContent(Content, GraphicsDevice);
             C2Level8.LoadContent(Content, GraphicsDevice);
-            //C2Level9.LoadContent(Content, GraphicsDevice);
-            //C2Level10.LoadContent(Content, GraphicsDevice);
 
             // Load backgrounds
             bgLevel = Content.Load<Texture2D>(@"Backgrounds/levelbg");
@@ -246,29 +241,18 @@ namespace Jumper
             // Update input manager
             InputManager.Update(gameTime);
 
-            //// Allows the game to return to menu
-            //if (InputManager.IsTapped(Keys.Escape))
-            //    gameState = GameState.MainMenu;
-
-            //!!DEBUG CHANGE BEFORE RELEASE!!
-            // Warp keys
-            if (InputManager.IsTapped(Keys.NumPad2))
-            {
-                C1Level++;
-                C2Level++;
-            }
-            else if (InputManager.IsTapped(Keys.NumPad1))
-            {
-                C1Level -= 3;
-                C2Level -= 3;
-            }
-
 
             // Gamestate specific code
             switch (gameState)
             {
                 case GameState.MainMenu:
                     MainMenu.Update(gameTime);
+
+                    // Exit game if ESC is pressed
+                    if (InputManager.IsTapped(Keys.Escape))
+                    {
+                        this.Exit();
+                    }
                     break;
 
                 case GameState.ChapterSelect:
@@ -314,10 +298,14 @@ namespace Jumper
                                     C1Level++;
                                     break;
                                 case Chapter1.Level1:
-                                    collisionManager.Update(gameTime, C1Level1.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level1.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -346,10 +334,14 @@ namespace Jumper
                                     C1Level++;
                                     break;
                                 case Chapter1.Level2:
-                                    collisionManager.Update(gameTime, C1Level2.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level2.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -376,10 +368,14 @@ namespace Jumper
                                     C1Level++;
                                     break;
                                 case Chapter1.Level3:
-                                    collisionManager.Update(gameTime, C1Level3.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level3.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -404,10 +400,14 @@ namespace Jumper
                                     C1Level++;
                                     break;
                                 case Chapter1.Level4:
-                                    collisionManager.Update(gameTime, C1Level4.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level4.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -432,10 +432,14 @@ namespace Jumper
                                     C1Level++;
                                     break;
                                 case Chapter1.Level5:
-                                    collisionManager.Update(gameTime, C1Level5.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level5.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -461,10 +465,14 @@ namespace Jumper
                                     break;
 
                                 case Chapter1.Level6:
-                                    collisionManager.Update(gameTime, C1Level6.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level6.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -490,10 +498,14 @@ namespace Jumper
                                     break;
 
                                 case Chapter1.Level7:
-                                    collisionManager.Update(gameTime, C1Level7.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level7.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -519,10 +531,14 @@ namespace Jumper
                                     break;
 
                                 case Chapter1.Level8:
-                                    collisionManager.Update(gameTime, C1Level8.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C1Level8.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -561,10 +577,14 @@ namespace Jumper
                                     C2Level++;
                                     break;
                                 case Chapter2.Level1:
-                                    collisionManager.Update(gameTime, C2Level1.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level1.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -590,10 +610,14 @@ namespace Jumper
                                     C2Level++;
                                     break;
                                 case Chapter2.Level2:
-                                    collisionManager.Update(gameTime, C2Level2.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level2.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -618,10 +642,14 @@ namespace Jumper
                                     C2Level++;
                                     break;
                                 case Chapter2.Level3:
-                                    collisionManager.Update(gameTime, C2Level3.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level3.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -646,10 +674,14 @@ namespace Jumper
                                     C2Level++;
                                     break;
                                 case Chapter2.Level4:
-                                    collisionManager.Update(gameTime, C2Level4.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level4.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -674,10 +706,14 @@ namespace Jumper
                                     C2Level++;
                                     break;
                                 case Chapter2.Level5:
-                                    collisionManager.Update(gameTime, C2Level5.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level5.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -703,10 +739,14 @@ namespace Jumper
                                     break;
 
                                 case Chapter2.Level6:
-                                    collisionManager.Update(gameTime, C2Level6.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level6.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -732,10 +772,14 @@ namespace Jumper
                                     break;
 
                                 case Chapter2.Level7:
-                                    collisionManager.Update(gameTime, C2Level7.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level7.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);
@@ -761,10 +805,14 @@ namespace Jumper
                                     break;
 
                                 case Chapter2.Level8:
-                                    collisionManager.Update(gameTime, C2Level8.tileManager, keyDoor, spikeManager);
-
                                     // Update the player
                                     player.Update(gameTime);
+
+                                    // Check collisions
+                                    collisionManager.Update(gameTime, C2Level8.tileManager, keyDoor, spikeManager);
+
+                                    // Move player
+                                    player.MovePlayerIfNoCollision();
 
                                     enemyManager.Update(gameTime);
                                     breakableManager.Update(gameTime);

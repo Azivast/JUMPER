@@ -13,7 +13,7 @@ namespace Jumper
     {
         // Position of player
         public static Vector2 PlayerPosition = new Vector2(365, 403);
-        public static float LevelTime = 60;
+        public static float LevelTime = 25;
 
         public static TileManager tileManager;
         public static TypeText TutorialText;

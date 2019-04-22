@@ -18,6 +18,9 @@ namespace Jumper
         private KeyDoor keyDoor;
         private HeartManager heartManager;
 
+        // List of all tiles to check collision against
+        List<Sprite> Tiles = new List<Sprite>();
+
         public CollisionManager(
             PlayerManager player,
             EnemyManager enemyManager,
@@ -35,32 +38,18 @@ namespace Jumper
             this.heartManager = heartManager;
         }
 
+
         private void checkPlayerToEnemyCollision()
         {
+            // Calculate a smaller player  hitbox
+            Rectangle playerRect = player.Sprite.Rectangle;
+            playerRect.Inflate(-1, -1);
             foreach (Enemy enemy in enemyManager.Enemies)
-                if (player.Sprite.IsBoxColliding(enemy.EnemySprite.Rectangle))
+                if (playerRect.Intersects(enemy.EnemySprite.Rectangle))
                 {
                     player.KillPlayer();
-                }                
-        }
-
-        // Check all breakable collisions
-        private void checkPlayerToBreakableCollisions()
-        {
-            // Check collisions
-            foreach (Breakable breakable in breakableManager.Breakables)
-            {
-                if (!breakable.IsBroken)
-                {
-                    if (playerCollidesBottom(breakable.Sprite) ||
-                        playerCollidesTop(breakable.Sprite) ||
-                        playerCollidesRight(breakable.Sprite) ||
-                        playerCollidesLeft(breakable.Sprite))
-                    {
-                        breakable.Break();
-                    }
                 }
-            }
+ 
         }
 
         // Check all spike collisions
@@ -96,7 +85,7 @@ namespace Jumper
                     // Pick up the key
                     keyDoor.PickUpKey(key);
                     // Add additional time to player
-                    player.LevelTimeLeft += 10;
+                    player.LevelTimeLeft += 5;
                 }
             }
         }
@@ -130,84 +119,139 @@ namespace Jumper
             }
         }
 
-        // Check all wall collisions
-        private void checkPlayerToTilesCollisions(TileManager tileManager)
+        // Check all breakable collisions
+        private void checkPlayerToBreakableCollisions()
         {
+            // Calculate rectangle for player
+            Rectangle playerRect = new Rectangle(player.WantedPosRect.X, player.WantedPosRect.Y, player.WantedPosRect.Width, player.WantedPosRect.Height + 1);
             // Check collisions
-            foreach (Sprite tile in tileManager.Tiles)
+            foreach (Breakable breakable in breakableManager.Breakables)
             {
-                playerCollidesBottom(tile);
-                playerCollidesTop(tile);
-                playerCollidesRight(tile);
-                playerCollidesLeft(tile);
+                if (!breakable.IsBroken)
+                {
+                    if (playerRect.Intersects(breakable.Sprite.Rectangle))
+                    {
+                        breakable.Break();
+                    }
+                }
             }
         }
 
-        // Check if player collides with top of tile
-        private bool playerCollidesBottom(Sprite tile)
+        // Check if Rectangle will collide with a tile
+        private bool RectangleCollidesWithTile(Rectangle rectangle, List<Sprite> Tiles)
         {
-            if (player.Sprite.Rectangle.Bottom >= tile.Rectangle.Top - 2 &&
-                    player.Sprite.Rectangle.Bottom <= tile.Rectangle.Top + (tile.Rectangle.Height / 2) &&
-                    player.Sprite.Rectangle.Right >= tile.Rectangle.Left &&
-                    player.Sprite.Rectangle.Left <= tile.Rectangle.Right)
+            //player.WillCollide = false;
+            foreach (Sprite tile in Tiles)
             {
-                player.CollidesBottom = true;
-                return true;
+                if (rectangle.Intersects(tile.Rectangle))
+                    return true;
             }
+
             return false;
         }
-        // Check if player collides with bottom of tile
-        private bool playerCollidesTop(Sprite tile)
+
+        // Creates a rectangle at given position
+        private Rectangle CreateRectangleAtPosition(Vector2 positionToTry, int width, int height)
         {
-            if (player.Sprite.Rectangle.Top <= tile.Rectangle.Bottom &&
-                player.Sprite.Rectangle.Top >= tile.Rectangle.Bottom - (tile.Rectangle.Height / 2) &&
-                player.Sprite.Rectangle.Right >= tile.Rectangle.Left &&
-                player.Sprite.Rectangle.Left <= tile.Rectangle.Right)
-            {
-                player.CollidesTop = true;
-                return true;
-            }
-            return false;
+            return new Rectangle((int)positionToTry.X, (int)positionToTry.Y, width, height);
         }
-        // Check if player collides with left of tile
-        private bool playerCollidesRight(Sprite tile)
+
+        // Determine where a function can travel without getting stuck in a tile
+        public Vector2 WhereCanPlayerGo(Vector2 originalPosition, Vector2 destination, Rectangle boundingRectangle, TileManager tileManager)
         {
-            if (player.Sprite.Rectangle.Bottom >= tile.Rectangle.Top + 2 &&
-                player.Sprite.Rectangle.Top <= tile.Rectangle.Bottom - 2 &&
-                player.Sprite.Rectangle.Right >= tile.Rectangle.Left - 2 &&
-                player.Sprite.Rectangle.Right <= tile.Rectangle.Left + 5)
+            // Clear list of tiles
+            Tiles.Clear();
+
+            // Add tiles to list
+            Tiles.AddRange(tileManager.Tiles);
+            // Add active breakables to the list
+            foreach (Breakable breakable in breakableManager.Breakables)
             {
-                player.CollidesRight = true;
-                return true;
+                if (!breakable.IsBroken)
+                {
+                    Tiles.Add(breakable.Sprite);
+                    //Console.Write("add");
+                }
             }
-            return false;
+            //Console.Write(Tiles.Count);
+
+            Vector2 movementToTry = destination - originalPosition;
+            Vector2 furthestAvailableLocationSoFar = originalPosition;
+            int numberOfStepsToBreakMovementInto = (int)(movementToTry.Length() * 2) + 1;
+            Vector2 oneStep = movementToTry / numberOfStepsToBreakMovementInto;
+
+            // Check every possible step
+            for (int i = 1; i <= numberOfStepsToBreakMovementInto; i++)
+            {
+                Vector2 positionToTry = originalPosition + oneStep * i;
+                Rectangle newBoundary = CreateRectangleAtPosition(positionToTry, boundingRectangle.Width, boundingRectangle.Height);
+
+                // Check if player collides with tile
+                if (!RectangleCollidesWithTile(newBoundary, Tiles))
+                {
+                    furthestAvailableLocationSoFar = positionToTry;
+                }
+
+                // If player does collide
+                else
+                {
+                    // Check if movement is  diagonal
+                    bool isDiagonalMove = movementToTry.X != 0 && movementToTry.Y != 0;
+                    // If it is, check if player can move in any direction of the left over diagonal movement
+                    if (isDiagonalMove)
+                    {
+                        int stepsLeft = numberOfStepsToBreakMovementInto - (i - 1);
+
+                        Vector2 remainingHorizontalMovement = oneStep.X * Vector2.UnitX * stepsLeft;
+                        Vector2 finalPositionIfMovingHorizontally = furthestAvailableLocationSoFar + remainingHorizontalMovement;
+                        furthestAvailableLocationSoFar =
+                            WhereCanPlayerGo(furthestAvailableLocationSoFar, finalPositionIfMovingHorizontally, boundingRectangle, tileManager);
+
+                        Vector2 remainingVerticalMovement = oneStep.Y * Vector2.UnitY * stepsLeft;
+                        Vector2 finalPositionIfMovingVertically = furthestAvailableLocationSoFar + remainingVerticalMovement;
+                        furthestAvailableLocationSoFar =
+                            WhereCanPlayerGo(furthestAvailableLocationSoFar, finalPositionIfMovingVertically, boundingRectangle, tileManager);
+                    }
+                    break;
+                }
+            }
+            return furthestAvailableLocationSoFar;
         }
-        // Check if player collides with right of tile
-        private bool playerCollidesLeft(Sprite tile)
+
+        public void MovePlayerWherePossible(TileManager tileManager)
         {
-            if (player.Sprite.Rectangle.Bottom >= tile.Rectangle.Top + 2 &&
-                player.Sprite.Rectangle.Top <= tile.Rectangle.Bottom - 2 &&
-                player.Sprite.Rectangle.Left <= tile.Rectangle.Right + 2 &&
-                player.Sprite.Rectangle.Left >= tile.Rectangle.Right - 5)
+            // Update position to where player can move
+            player.NextPos = WhereCanPlayerGo(player.Position, player.WantedPos, player.Sprite.Rectangle, tileManager);
+
+            // Check if player is falling
+            if (RectangleCollidesWithTile(
+                new Rectangle((int)player.NextPos.X, (int)player.NextPos.Y + 1, player.Rectangle.Width, player.Rectangle.Height),
+                Tiles))
             {
-                player.CollidesLeft = true;
-                return true;
+                player.Airborne = false;
+                player.Sprite.Velocity.Y = 0;
             }
-            return false;
+            else
+                player.Airborne = true;
+
+            // Check if player hit its head
+            if (RectangleCollidesWithTile(
+                new Rectangle((int)player.NextPos.X, (int)player.NextPos.Y - 1, player.Rectangle.Width, player.Rectangle.Height),
+                Tiles))
+            {
+                // if so stop player and move downwards
+                player.Sprite.Velocity.Y = 0.6f;
+                //player.Airborne = true;
+            }
         }
+
 
         // Update
         public void Update(GameTime gameTime, TileManager tileManager, KeyDoor keyDoor, SpikeManager spikeManager)
         {
-            // Reset so player can move again
-            player.CollidesTop = false;
-            player.CollidesBottom = false;
-            player.CollidesRight = false;
-            player.CollidesLeft = false;
-
             // Check collisions
-            checkPlayerToTilesCollisions(tileManager);
             checkPlayerToBreakableCollisions();
+            MovePlayerWherePossible(tileManager);
             checkPlayerToSpikeCollisions();
             checkPlayerToEnemyCollision();
             checkPlayerToKeyCollisions();
