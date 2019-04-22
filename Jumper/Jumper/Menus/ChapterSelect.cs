@@ -153,7 +153,7 @@ namespace Jumper
                     if (i == 2)
                     {
                         if (!Game1.Chapter3Unlocked)
-                            spriteBatch.Draw(locked, new Rectangle((int)iconPosition.X + 150 * i, (int)iconPosition.Y, Chapters[i].Width, Chapters[i].Height), Color.White);
+                            spriteBatch.Draw(locked, new Rectangle((int)iconPosition.X + 150 * i, (int)iconPosition.Y, Chapters[i].Width, Chapters[i].Height), new Color(36, 36, 36));
                         spriteBatch.Draw(disabled, new Rectangle((int)iconPosition.X + 150 * i, (int)iconPosition.Y, Chapters[i].Width, Chapters[i].Height), Color.White);
                     }
                 }

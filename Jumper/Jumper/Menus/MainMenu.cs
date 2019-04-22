@@ -68,7 +68,7 @@ namespace Jumper
             buttons.Draw(spriteBatch);
 
             // new Vector2(655, 455) <- Cords for 2 digit version number
-            spriteBatch.DrawString(font, "VERSION " + Game1.VersionNumber, new Vector2(540, 455), new Color(36, 36, 36));
+            spriteBatch.DrawString(font, "VERSION " + Game1.VersionNumber, new Vector2(600, 455), new Color(36, 36, 36));
         }
     }
 }

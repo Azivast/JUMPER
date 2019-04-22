@@ -63,6 +63,10 @@ namespace Jumper
                 SoundManager.Select.Play();
                 Game1.gameState = Game1.GameState.MainMenu;
             }
+            if (InputManager.IsTapped(Keys.Escape))
+            {
+                Game1.gameState = Game1.GameState.MainMenu;
+            }
         }
 
 

@@ -39,6 +39,10 @@ namespace Jumper
         // Update
         public static void Update(GameTime gameTime)
         {
+            if (InputManager.IsTapped(Keys.Escape))
+            {
+                Game1.gameState = Game1.GameState.MainMenu;
+            }
             if (InputManager.IsTapped(Keys.Down))
             {
                 buttons.NextButton();
